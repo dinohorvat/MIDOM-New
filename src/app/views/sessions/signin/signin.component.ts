@@ -45,14 +45,18 @@ export class SigninComponent implements OnInit {
       Promise.resolve(this.loginService.login(user)
           .then(response => {
               let res: any = response;
-              localStorage.setItem("midom_user", JSON.stringify(user));
+              let userStorage = {
+                  username: signinData.username
+              };
+              localStorage.setItem("midom_user", JSON.stringify(userStorage));
               console.log(response);
               if (res.code == 0) {
                   if(!isNullOrUndefined(this.returnUrl)){
                       this.router.navigate([this.returnUrl]);
                       return true;
                   }
-                  this.router.navigate(['main'], {relativeTo: this.route.parent});
+                  console.log("TU");
+                  this.router.navigate(['dashboard']);
               }
               else {
                   this.globalService.showNotice(res.message);

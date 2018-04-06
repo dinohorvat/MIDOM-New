@@ -1,0 +1,45 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <div fxFlex="100" fxFlex.gt-md="300px" fxFlex.gt-sm="50">
+    <mat-card class="profile-sidebar mb-1 pb-0">
+      <div class="propic text-center">
+        <img src="assets/images/face-7.jpg" alt="">
+      </div>
+      <div class="profile-title text-center mb-1">
+        <div class="main-title">{{user.firstName}} <b>{{user.lastName}}</b></div>
+        <div class="subtitle mb-05">@{{user.username}}</div>
+        <div class="text-muted">{{user.description}}</div>
+      </div>
+      <div class="profile-nav">
+        <mat-nav-list>
+          <mat-list-item routerLink="/dashboard/profile-overview" routerLinkActive="list-item-active">
+            <mat-icon>home</mat-icon>
+            Overview
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item routerLink="/dashboard/profile-settings" routerLinkActive="list-item-active">
+            <mat-icon>settings</mat-icon>
+            Settings
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+    </mat-card>
+
+    <!-- Contact Information -->
+    <mat-card class="default">
+      <mat-card-title>Contact Information</mat-card-title>
+      <mat-card-content class="pt-0">
+        <mat-list>
+          <mat-list-item><mat-icon class="mr-1">account_balance</mat-icon> {{user.organisation}}</mat-list-item>
+          <mat-list-item><mat-icon class="mr-1">email</mat-icon> {{user.email}}</mat-list-item>
+          <mat-list-item><mat-icon class="mr-1">phone</mat-icon> {{user.telephon}}</mat-list-item>
+          <mat-list-item><mat-icon class="mr-1">location_city</mat-icon> {{user.location}}</mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Profile Views -->
+  <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="calc(100% - 300px)">
+    <router-outlet></router-outlet>
+  </div>
+</div>

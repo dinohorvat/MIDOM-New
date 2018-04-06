@@ -26,9 +26,9 @@ export const rootRouterConfig: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'dashboard', 
-        loadChildren: './views/others/others.module#OthersModule', 
-        data: { title: 'Others', breadcrumb: 'OTHERS'}
+        path: 'dashboard',
+        loadChildren: './views/others/others.module#OthersModule',
+        data: { title: 'Dashboard', breadcrumb: 'Dashboard'}
       },
         {
         path: 'ms',

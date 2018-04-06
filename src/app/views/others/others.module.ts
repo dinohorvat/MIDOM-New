@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { 
   MatListModule,
   MatIconModule,
@@ -21,13 +21,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from './../../shared/shared.module';
 
 
-import { AppBlankComponent } from './app-blank/app-blank.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { OthersRoutes } from "./others.routing";
+import {ProfileSettingsComponent} from './dashboard/profile-settings/profile-settings.component';
+import {ProfileOverviewComponent} from './dashboard/profile-overview/profile-overview.component';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+      ReactiveFormsModule,
     MatListModule,
     MatIconModule,
     MatButtonModule,
@@ -43,10 +47,13 @@ import { OthersRoutes } from "./others.routing";
     MatProgressBarModule,
     FlexLayoutModule,
     SharedModule,
+      NgxDatatableModule,
     RouterModule.forChild(OthersRoutes)
   ],
   declarations: [
-    AppBlankComponent
+    DashboardComponent,
+      ProfileSettingsComponent,
+      ProfileOverviewComponent
   ]
 })
 export class OthersModule { }

@@ -47,6 +47,9 @@ export class ThemeService {
   }
 
   changeTheme(r: Renderer2, theme:ITheme) {
+    console.log(theme);
+    console.log("FLUP");
+    console.log(this.activatedTheme);
     r.removeClass(this.document.body, this.activatedTheme.name);
     r.addClass(this.document.body, theme.name);
     this.flipActiveFlag(theme)

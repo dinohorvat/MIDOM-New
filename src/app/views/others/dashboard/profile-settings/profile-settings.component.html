@@ -1,0 +1,64 @@
+<mat-card class="p-0">
+  <mat-tab-group>
+    <mat-tab label="Password Settings">
+      <mat-card-content class="mt-1">
+          <form [formGroup]="passwordForm">
+            <div class="pb-1">
+              <mat-form-field class="full-width">
+                <input
+                        type="password"
+                        name="password"
+                        matInput
+                        formControlName="password"
+                        placeholder="New Password"
+                        value="">
+              </mat-form-field>
+              <small
+                      *ngIf="passwordForm.controls['password'].hasError('required') && passwordForm.controls['password'].touched"
+                      class="form-error-msg"> Password is required </small>
+            </div>
+
+            <div class="pb-1">
+              <mat-form-field class="full-width">
+                <input
+                        type="password"
+                        name="confirmPassword"
+                        matInput
+                        appEqualValidator="password"
+                        formControlName="confirmPassword"
+                        placeholder="Confirm Password"
+                        value="">
+              </mat-form-field>
+              <small
+                      *ngIf="passwordForm.controls['confirmPassword'].hasError('equalTo')"
+                      class="form-error-msg"> Password mismatch </small>
+            </div>
+            <button (click)="changePassword();" mat-raised-button color="primary">Save</button>
+          </form>
+      </mat-card-content>
+    </mat-tab>
+    <mat-tab label="Application Settings">
+      <mat-card-content>
+        <div class="mb-1 mt-1">
+          <mat-checkbox> Get weekly news in your email.</mat-checkbox>
+        </div>
+        <div class="mb-1">
+          <mat-checkbox> Get notification when someone follows you.</mat-checkbox>
+        </div>
+        <div class="mb-1">
+          <mat-checkbox> Get email when someone follows you.</mat-checkbox>
+        </div>
+        <div class="mb-1">
+            <p>Choose your admin panel color schemes.</p>
+            <mat-radio-group fxLayout="column" fxLayoutGap="4px">
+              <mat-radio-button (change)="changeTheme(themeService.egretThemes[0])" value="indigo">Indigo</mat-radio-button>
+              <mat-radio-button (change)="changeTheme(themeService.egretThemes[1])" value="blue">Blue</mat-radio-button>
+              <mat-radio-button (change)="changeTheme('pink')" value="pink">Pink</mat-radio-button>
+              <mat-radio-button (change)="changeTheme('purple')" value="purple">Purple</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <button mat-raised-button color="primary">Save</button>
+      </mat-card-content>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

@@ -40,17 +40,25 @@ export class NavigationService {
       name: 'Consultation Requests',
       type: 'link',
       tooltip: 'Consultation Requests',
-      icon: 'dashboard',
+      icon: 'notifications_active',
       state: 'ms/consultation-requests'
     },
-    {
-      name: 'DOC',
-      type: 'extLink',
-      tooltip: 'Documentation',
-      icon: 'library_books',
-      state: 'http://egret-doc.mhrafi.com/'
-    }
-  ]
+      {
+      name: 'Studies',
+      type: 'link',
+      tooltip: 'Studies',
+      icon: 'local_hospital',
+      state: 'ms/studies'
+    },
+
+    // {
+    //   name: 'MIDOM',
+    //   type: 'extLink',
+    //   tooltip: 'MIDOM',
+    //   icon: 'library_books',
+    //   state: 'http://midom.rasip.fer.hr:8080/login'
+    // }
+  ];
 
   // Icon menu TITLE at the very top of navigation.
   // This title will appear if any icon type item is present in menu.
