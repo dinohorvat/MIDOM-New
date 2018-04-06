@@ -59,6 +59,9 @@ import { NavigationService } from "./services/navigation.service";
 import { RoutePartsService } from './services/route-parts.service';
 import { AuthGuard } from './services/auth/auth.guard';
 import {AuthService} from './services/auth/auth.service';
+import {LoginService} from './services/login.service';
+import {HttpClientModule} from '@angular/common/http';
+import {GlobalService} from './services/global.service';
 
 const classesToInclude = [
   
@@ -86,6 +89,7 @@ const classesToInclude = [
     CommonModule,
     FormsModule,
     RouterModule,
+    HttpClientModule,
     FlexLayoutModule,
     TranslateModule,
     MatSidenavModule,
@@ -103,15 +107,17 @@ const classesToInclude = [
     MatCheckboxModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatRippleModule
+    MatRippleModule,
   ],
   providers: [
     ThemeService,
     LayoutService,
     NavigationService,
     RoutePartsService,
+    GlobalService,
     AuthGuard,
-    AuthService
+    AuthService,
+    LoginService
   ],
   declarations: classesToInclude,
   exports: classesToInclude

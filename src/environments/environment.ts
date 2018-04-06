@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiURL: 'developmentApi'
+  endpoint: "http://midom.rasip.fer.hr:8080"
 };
