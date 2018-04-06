@@ -17,6 +17,7 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
   public iconTypeMenuTitle: string;
   private menuItemsSub: Subscription;
   user: MedicalSpecialistModel = new MedicalSpecialistModel();
+  isAvailable: boolean = false;
 
   constructor(
     private navService: NavigationService,
@@ -48,13 +49,31 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
       this.menuItemsSub.unsubscribe()
     }
   }
+  changeStatus(state){
+      let currStatus;
+      if(state.checked){
+          currStatus = 'available';
+      }
+      else{
+          currStatus = 'not available';
+      }
+      let data = {
+          status: currStatus
+      };
+      console.log(data);
+      Promise.resolve(this.medicalSpecialistService.changeStatus(data))
+          .then(response => {
 
+          }).catch(err => {
+          console.log(err);
+      })
+  }
     getUser(){
         Promise.resolve(this.medicalSpecialistService.fetchUser())
             .then(response => {
                 let res: any = response;
                 this.user = res.message;
-                console.log(this.user);
+                this.isAvailable = this.user.isAvailable;
             }).catch(err => {
             console.log(err);
         })

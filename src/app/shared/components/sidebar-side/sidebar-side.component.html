@@ -21,6 +21,8 @@
       <div class="app-user-photo">
         <img src="assets/images/face-7.jpg" alt="">
       </div>
+      <mat-slide-toggle [checked]="isAvailable" (change)="changeStatus($event)" [color]="primary"></mat-slide-toggle>
+
       <span class="app-user-name mb-05">
         <mat-icon class="icon-xs text-muted">lock</mat-icon> 
         {{user.firstName}} {{user.lastName}}

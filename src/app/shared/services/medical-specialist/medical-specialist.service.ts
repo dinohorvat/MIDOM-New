@@ -33,6 +33,7 @@ export class MedicalSpecialistService {
             .toPromise()
             .then(response => {
                 var data:any = response;
+                console.log(response);
                 return data as any
             })
             .catch(this.handleError);

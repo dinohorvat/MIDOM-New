@@ -4,23 +4,23 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
-import { 
-  MatSidenavModule,
-  MatListModule,
-  MatTooltipModule,
-  MatOptionModule,
-  MatSelectModule,
-  MatMenuModule,
-  MatSnackBarModule,
-  MatGridListModule,
-  MatToolbarModule,
-  MatIconModule,
-  MatButtonModule,
-  MatRadioModule,
-  MatCheckboxModule,
-  MatCardModule,
-  MatProgressSpinnerModule,
-  MatRippleModule
+import {
+    MatSidenavModule,
+    MatListModule,
+    MatTooltipModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatSnackBarModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatRippleModule, MatSlideToggle, MatSlideToggleModule
 } from '@angular/material';
 
 // ONLY REQUIRED FOR **SIDE** NAVIGATION LAYOUT
@@ -112,6 +112,7 @@ const classesToInclude = [
     MatCardModule,
     MatProgressSpinnerModule,
     MatRippleModule,
+    MatSlideToggleModule
   ],
   providers: [
     ThemeService,
