@@ -58,6 +58,7 @@ import { LayoutService } from './services/layout.service';
 import { NavigationService } from "./services/navigation.service";
 import { RoutePartsService } from './services/route-parts.service';
 import { AuthGuard } from './services/auth/auth.guard';
+import {AuthService} from './services/auth/auth.service';
 
 const classesToInclude = [
   
@@ -109,7 +110,8 @@ const classesToInclude = [
     LayoutService,
     NavigationService,
     RoutePartsService,
-    AuthGuard
+    AuthGuard,
+    AuthService
   ],
   declarations: classesToInclude,
   exports: classesToInclude
