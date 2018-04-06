@@ -29,7 +29,13 @@ export const rootRouterConfig: Routes = [
         path: 'dashboard', 
         loadChildren: './views/others/others.module#OthersModule', 
         data: { title: 'Others', breadcrumb: 'OTHERS'}
-      }
+      },
+        {
+        path: 'ms',
+        loadChildren: './views/medical_specialist/medical-specialist.module#MedicalSpecialistModule',
+        data: { title: 'MS', breadcrumb: 'MS'}
+
+        }
     ]
   },
   { 

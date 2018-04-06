@@ -36,6 +36,13 @@ export class NavigationService {
       icon: 'dashboard',
       state: 'dashboard'
     },
+      {
+      name: 'Consultation Requests',
+      type: 'link',
+      tooltip: 'Consultation Requests',
+      icon: 'dashboard',
+      state: 'ms/consultation-requests'
+    },
     {
       name: 'DOC',
       type: 'extLink',

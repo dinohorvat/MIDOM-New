@@ -9,6 +9,7 @@ import { GestureConfig } from '@angular/material';
 import { rootRouterConfig } from './app.routing';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
+import {ConsultationRequestsComponent} from './views/medical_specialist/consultation-requests/consultation-requests.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -28,7 +29,9 @@ export function createTranslateLoader(http: Http) {
     }),
     RouterModule.forRoot(rootRouterConfig, { useHash: false })
   ],
-  declarations: [AppComponent],
+  declarations: [
+      AppComponent
+  ],
   providers: [
     // ANGULAR MATERIAL SLIDER FIX
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }

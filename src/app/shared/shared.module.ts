@@ -66,6 +66,7 @@ import {AccountService} from './services/medical-specialist/account.service';
 import {ConsultationRequestsService} from './services/medical-specialist/consultation-requests.service';
 import {MedicalSpecialistService} from './services/medical-specialist/medical-specialist.service';
 import {SpecialisationsService} from './services/medical-specialist/specialisations.service';
+import {DatemsPipe} from './pipes/datems.pipe';
 
 const classesToInclude = [
   
@@ -85,7 +86,8 @@ const classesToInclude = [
   DropdownAnchorDirective,
   DropdownLinkDirective,
   RelativeTimePipe,
-  ExcerptPipe
+  ExcerptPipe,
+  DatemsPipe
 ]
 
 @NgModule({

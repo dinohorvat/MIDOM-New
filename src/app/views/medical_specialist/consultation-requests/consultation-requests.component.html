@@ -1,0 +1,40 @@
+
+<section id="extended">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <mat-radio-group (change)="statusChange($event)" class="example-radio-group" [(ngModel)]="selectedStatus">
+                        <mat-radio-button class="example-radio-button" *ngFor="let season of statusList" [value]="season">
+                            {{season}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <mat-card class="p-0">
+                    <mat-card-content class="p-0">
+                        <ngx-datatable
+                                class="material ml-0 mr-0"
+                                [rows]="consultationRequestList"
+                                [columnMode]="'flex'"
+                                [headerHeight]="50"
+                                [footerHeight]="50"
+                                [limit]="10"
+                                [rowHeight]="'auto'">
+                            <ngx-datatable-column name="Id" [flexGrow]="1">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{ row?.id }}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Creation Date" [flexGrow]="1">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{ row?.creationTime | dateMs }}
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+        </div>
+    </div>
+</section>
