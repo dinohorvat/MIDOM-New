@@ -62,6 +62,10 @@ import {AuthService} from './services/auth/auth.service';
 import {LoginService} from './services/login.service';
 import {HttpClientModule} from '@angular/common/http';
 import {GlobalService} from './services/global.service';
+import {AccountService} from './services/medical-specialist/account.service';
+import {ConsultationRequestsService} from './services/medical-specialist/consultation-requests.service';
+import {MedicalSpecialistService} from './services/medical-specialist/medical-specialist.service';
+import {SpecialisationsService} from './services/medical-specialist/specialisations.service';
 
 const classesToInclude = [
   
@@ -117,7 +121,12 @@ const classesToInclude = [
     GlobalService,
     AuthGuard,
     AuthService,
-    LoginService
+    LoginService,
+    //MS Providers
+    AccountService,
+    ConsultationRequestsService,
+    MedicalSpecialistService,
+    SpecialisationsService
   ],
   declarations: classesToInclude,
   exports: classesToInclude

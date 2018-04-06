@@ -3,6 +3,8 @@ import { NavigationService } from "../../../shared/services/navigation.service";
 import { ThemeService } from '../../services/theme.service';
 import { Subscription } from "rxjs/Subscription";
 import PerfectScrollbar from 'perfect-scrollbar';
+import {MedicalSpecialistService} from '../../services/medical-specialist/medical-specialist.service';
+import {MedicalSpecialistModel} from '../../models/medical-specialist.model';
 
 @Component({
   selector: 'app-sidebar-side',
@@ -14,12 +16,16 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
   public hasIconTypeMenuItem: boolean;
   public iconTypeMenuTitle: string;
   private menuItemsSub: Subscription;
+  user: MedicalSpecialistModel = new MedicalSpecialistModel();
+
   constructor(
     private navService: NavigationService,
     public themeService: ThemeService,
+    public medicalSpecialistService: MedicalSpecialistService
   ) { }
 
   ngOnInit() {
+    this.getUser();
     this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
     this.menuItemsSub = this.navService.menuItems$.subscribe(menuItem => {
       this.menuItems = menuItem;
@@ -42,5 +48,19 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
       this.menuItemsSub.unsubscribe()
     }
   }
+
+    getUser(){
+        Promise.resolve(this.medicalSpecialistService.fetchUser())
+            .then(response => {
+                let res: any = response;
+                this.user = res.message;
+                console.log(this.user);
+            }).catch(err => {
+            console.log(err);
+        })
+
+    }
+
+
 
 }
