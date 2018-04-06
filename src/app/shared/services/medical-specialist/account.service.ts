@@ -9,7 +9,6 @@ export class AccountService {
     constructor(private http: HttpClient, private router: Router) {
     }
 
-    // Error in API
     fetchAccountDetails(id): Promise<any> {
         let url = environment.endpoint + '/ms/getAccount/' + id;
         return this.http.get(url)
@@ -21,8 +20,6 @@ export class AccountService {
                     this.router.navigate(['login']);
                     return false;
                 }
-                console.log(url);
-                console.log(data);
                 return data as any
             })
             .catch(this.handleError);

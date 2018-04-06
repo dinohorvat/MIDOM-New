@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ConsultationRequestsService} from '../../../../shared/services/medical-specialist/consultation-requests.service';
+import {ConsultationRequestModel} from '../../../../shared/models/consultation-request.model';
+import {AccountService} from '../../../../shared/services/medical-specialist/account.service';
 
 @Component({
   selector: 'app-profile-overview',
@@ -101,10 +104,49 @@ export class ProfileOverviewComponent implements OnInit {
     name: 'Photo 6',
     url: 'assets/images/sq-12.jpg'
   }]
+  consultationRequestList: ConsultationRequestModel[] = [];
 
-  constructor() { }
+  constructor(private consultationRequestsService: ConsultationRequestsService,
+              private accountService: AccountService) { }
 
   ngOnInit() {
+    this.getConsultationRequest("Pending");
+    this.getConsultationRequest("Consulted");
   }
+
+    getConsultationRequest(status) {
+    if(this.consultationRequestList.length === 5){
+      return true;
+    }
+        Promise.resolve(this.consultationRequestsService
+            .fetchConsultationRequest(status).then(res => {
+                if(res.message.length > 0){
+                    res.message.reverse();
+                    for(let item of res.message){
+                        Promise.resolve(this.accountService.fetchAccountDetails(item.studyOwner).then(res=>{
+                            item.owner = res.message;
+                            if(this.consultationRequestList.length ===5){
+                                return true;
+                            }
+                            this.consultationRequestList.push(item);
+                        }).catch(err=>{
+
+                        }));
+                }
+              }
+                console.log(this.consultationRequestList);
+            }).catch(err => {
+                console.log(err);
+            }))
+    }
+
+    getAccountInfo(id){
+      Promise.resolve(this.accountService.fetchAccountDetails(id).then(res=>{
+          console.log(res);
+      }).catch(err=>{
+
+      }))
+    }
+
 
 }
