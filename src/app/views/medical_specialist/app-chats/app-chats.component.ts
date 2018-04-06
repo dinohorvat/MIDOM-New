@@ -20,40 +20,21 @@ export class AppChatsComponent implements OnInit {
   @ViewChild(MatSidenav) private sideNave: MatSidenav;
 
   activeChatUser = {
-    name: 'Gevorg Spartak',
+    name: 'Test test',
     photo: 'assets/images/face-2.jpg',
     isOnline: true,
     lastMsg: 'Hello!'
   };
 
   connectedUsers = [{
-    name: 'Gevorg Spartak',
+    name: 'Test test',
     photo: 'assets/images/face-2.jpg',
     isOnline: true,
     lastMsg: 'What\'s going!'
-  }, {
-    name: 'Petros Toros',
-    photo: 'assets/images/face-4.jpg',
-    isOnline: true,
-    lastMsg: 'Send me the stories.'
-  }, {
-    name: 'Henrik Gevorg',
-    photo: 'assets/images/face-5.jpg',
-    isOnline: false,
-    lastMsg: 'Great work!!'
-  }, {
-    name: 'Gevorg Spartak',
-    photo: 'assets/images/face-6.jpg',
-    isOnline: false,
-    lastMsg: 'Bye'
-  }, {
-    name: 'Petros Toros',
-    photo: 'assets/images/face-7.jpg',
-    isOnline: true,
-    lastMsg: 'We\'ll talk later'
   }]
     crMessageList: CrMessageModel[] = [];
-
+    crId: any;
+    comment: any;
     constructor(private media: ObservableMedia,
                 private consultationRequestsService: ConsultationRequestsService,
                 private globalService: GlobalService, private router: Router) {
@@ -63,15 +44,42 @@ export class AppChatsComponent implements OnInit {
     }
 
   ngOnInit() {
-      console.log("CHAT");
       console.log(this.globalService.crId);
       console.log(this.globalService.crMessageList);
-    this.chatSideBarInit();
+      this.crMessageList = this.globalService.crMessageList;
+      this.crId = this.globalService.crId;
+      this.chatSideBarInit();
   }
   ngOnDestroy() {
     if(this.screenSizeWatcher) {
       this.screenSizeWatcher.unsubscribe()
     }
+  }
+
+  sendMessage(){
+      let message: CrMessageModel = new CrMessageModel();
+      message.msSender = "1";
+      message.comment = this.comment;
+      var date = new Date();
+      var time = date.getTime();
+      message.creationTime = time;
+      let data = {
+          comment: this.comment,
+          crId: this.crId.toString(),
+      };
+      Promise.resolve(this.consultationRequestsService.newCrMessage(data)
+          .then(res => {
+              console.log(res);
+              this.crMessageList.push(message);
+              // Scroll to message
+              document.getElementById("conversation-holds").scrollTop = document.getElementById("conversation-holds").scrollHeight;
+
+              this.comment = '';
+          }).catch(err =>{
+                  console.log(err);
+              }
+          ));
+
   }
 
   changeActiveUser(user) {

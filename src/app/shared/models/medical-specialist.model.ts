@@ -5,14 +5,15 @@ export class MedicalSpecialistModel{
     lastName: string;
     organisation: string;
     location: string;
-    telephone: string;
+    telephon: string;
     email: string;
     otherContact: string;
     description: string;
     isAvailable: boolean;
-    specialisations: Specialisation[];
+    specialisations: SpecialisationModel[];
 }
-export class Specialisation{
+export class SpecialisationModel{
     id: number;
     name: string;
+    active: boolean;
 }

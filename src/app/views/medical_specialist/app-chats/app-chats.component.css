@@ -1,0 +1,9 @@
+.chatForm{
+    display: inherit !important;
+    width: 100%;
+}
+.conversations-hold{
+    height: 25em;
+    overflow: auto;
+}
+

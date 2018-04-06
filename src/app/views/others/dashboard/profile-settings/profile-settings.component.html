@@ -1,5 +1,143 @@
 <mat-card class="p-0">
   <mat-tab-group>
+    <mat-tab label="Account Settings">
+      <mat-card-content class="mt-1">
+        <form [formGroup]="basicForm">
+          <div fxLayout="row" fxLayoutWrap="wrap">
+            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          [disabled]="true"
+                          matInput
+                          name="username"
+                          value="{{user.username}}"
+                          >
+                </mat-form-field>
+             </div>
+
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          matInput
+                          name="firstName"
+                          formControlName="firstName"
+                          placeholder="First name"
+                          value="">
+                </mat-form-field>
+                <small
+                        *ngIf="basicForm.controls['firstName'].hasError('required') && basicForm.controls['firstName'].touched"
+                        class="form-error-msg"> First name is required </small>
+              </div>
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          matInput
+                          name="lastName"
+                          formControlName="lastName"
+                          placeholder="Last name"
+                          value="">
+                </mat-form-field>
+                <small
+                        *ngIf="basicForm.controls['lastName'].hasError('required') && basicForm.controls['lastName'].touched"
+                        class="form-error-msg"> Last name is required </small>
+              </div>
+
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          matInput
+                          type="email"
+                          name="email"
+                          formControlName="email"
+                          placeholder="Your Email"
+                          value="">
+                </mat-form-field>
+                <small
+                        *ngIf="basicForm.controls['email'].hasError('required') && basicForm.controls['email'].touched"
+                        class="form-error-msg"> Email is required </small>
+                <small
+                        *ngIf="basicForm.controls['email'].hasError('email') && basicForm.controls['email'].touched"
+                        class="form-error-msg"> Invaild email address </small>
+              </div>
+
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          matInput
+                          name="organisation"
+                          formControlName="organisation"
+                          placeholder="Organisation"
+                          value="">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-xs="50">
+
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          matInput
+                          name="telephon"
+                          formControlName="telephon"
+                          placeholder="Phone number">
+                </mat-form-field>
+                <small
+                        *ngIf="basicForm.controls['telephon'].hasError('telephon') && basicForm.controls['telephon'].touched"
+                        class="form-error-msg"> Invaild phone number </small>
+              </div>
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          matInput
+                          name="otherContact"
+                          formControlName="otherContact"
+                          placeholder="Other Contact"
+                          value="">
+                </mat-form-field>
+              </div>
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          matInput
+                          name="location"
+                          formControlName="location"
+                          placeholder="Zagreb"
+                          value="">
+                </mat-form-field>
+              </div>
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input
+                          matInput
+                          name="description"
+                          formControlName="description"
+                          placeholder="Description"
+                          value="">
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+          <button
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="basicForm.invalid" (click)="updateUser()">Save</button>
+        </form>
+      </mat-card-content>
+    </mat-tab>
+    <mat-tab label="Specialisations Settings">
+      <mat-card-content>
+        <div class="mb-1">
+          <p>Specialisations</p>
+          <mat-checkbox *ngFor="let specialisation of allSpecialisations"
+                  name="rememberMe"
+                  class="pb-1">{{specialisation.name}}</mat-checkbox>
+        </div>
+        <button mat-raised-button (click)="updateSpecialisations();" color="primary">Save</button>
+      </mat-card-content>
+    </mat-tab>
     <mat-tab label="Password Settings">
       <mat-card-content class="mt-1">
           <form [formGroup]="passwordForm">
@@ -39,15 +177,6 @@
     </mat-tab>
     <mat-tab label="Application Settings">
       <mat-card-content>
-        <div class="mb-1 mt-1">
-          <mat-checkbox> Get weekly news in your email.</mat-checkbox>
-        </div>
-        <div class="mb-1">
-          <mat-checkbox> Get notification when someone follows you.</mat-checkbox>
-        </div>
-        <div class="mb-1">
-          <mat-checkbox> Get email when someone follows you.</mat-checkbox>
-        </div>
         <div class="mb-1">
             <p>Choose your admin panel color schemes.</p>
             <mat-radio-group fxLayout="column" fxLayoutGap="4px">

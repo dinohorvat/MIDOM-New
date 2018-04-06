@@ -5,7 +5,7 @@
       <!-- Left side topbar -->
       <mat-toolbar color="primary" class="chat-sidebar-toolbar">
         <a href="" class="toolbar-avatar online">
-          <img src="assets/images/face-3.jpg" alt="">
+          <img src="assets/images/face-7.jpg" alt="">
           <span class="status-dot"></span>
         </a>
       </mat-toolbar>
@@ -73,89 +73,52 @@
       </mat-toolbar>
 
       <!-- Main chat body -->
-      <div class="conversations-hold">
+      <div id="conversation-holds" class="conversations-hold">
         <!-- single chat item -->
-        <div class="single-conversation sender" fxLayout="row">
+        <div *ngFor="let message of crMessageList ">
+          <div *ngIf="message.msSender" class="single-conversation me" fxLayout="row">
+          <a href="" class="toolbar-avatar online">
+            <img src="assets/images/face-7.jpg" alt="">
+            <span class="status-dot"></span>
+          </a>
+          <div>
+            <h5 class="chat-username text-muted">Dino Horvat</h5>
+            <div class="conversation-msg">
+              {{message.comment}}
+            </div>
+            <p class="chat-date text-muted">{{message.creationTime | relativeTime}}</p>
+          </div>
+          </div>
+                  <div *ngIf="message.spSender" class="single-conversation sender" fxLayout="row">
           <a href="" class="toolbar-avatar online">
             <img src="assets/images/face-2.jpg" alt="">
             <span class="status-dot"></span>
           </a>
           <div>
-            <h5 class="chat-username text-muted">Gevorg Spartak</h5>
+            <h5 class="chat-username text-muted">Test test</h5>
             <div class="conversation-msg">
-              Hello, How are you
+              {{message.comment}}
             </div>
-            <p class="chat-date text-muted">10 min ago</p>
+            <p class="chat-date text-muted">{{message.creationTime | relativeTime}}</p>
           </div>
         </div>
-        <!-- single chat item -->
-        <div class="single-conversation me" fxLayout="row">
-          <a href="" class="toolbar-avatar online">
-            <img src="assets/images/face-3.jpg" alt="">
-            <span class="status-dot"></span>
-          </a>
-          <div>
-            <h5 class="chat-username text-muted">Dave Wolf</h5>
-            <div class="conversation-msg">
-              I'm good, Thanks
-            </div>
-            <p class="chat-date text-muted">10 min ago</p>
-          </div>
-        </div>
-        <!-- single chat item -->
-        <div class="single-conversation sender" fxLayout="row">
-          <a href="" class="toolbar-avatar online">
-            <img src="assets/images/face-2.jpg" alt="">
-            <span class="status-dot"></span>
-          </a>
-          <div>
-            <h5 class="chat-username text-muted">Gevorg Spartak</h5>
-            <div class="conversation-msg">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, obcaecati!
-            </div>
-            <p class="chat-date text-muted">10 min ago</p>
-          </div>
-        </div>
-        <!-- single chat item -->
-        <div class="single-conversation me" fxLayout="row">
-          <a href="" class="toolbar-avatar online">
-            <img src="assets/images/face-3.jpg" alt="">
-            <span class="status-dot"></span>
-          </a>
-          <div>
-            <h5 class="chat-username text-muted">Dave Wolf</h5>
-            <div class="conversation-msg">
-              Consectetur adipisicing elit. Delectus, obcaecati!
-            </div>
-            <p class="chat-date text-muted">10 min ago</p>
-          </div>
-        </div>
-        <!-- single chat item -->
-        <div class="single-conversation sender" fxLayout="row">
-          <a href="" class="toolbar-avatar online">
-            <img src="assets/images/face-2.jpg" alt="">
-            <span class="status-dot"></span>
-          </a>
-          <div>
-            <h5 class="chat-username text-muted">Gevorg Spartak</h5>
-            <div class="conversation-msg">
-              Consectetur adipisicing elit. Delectus, obcaecati!
-            </div>
-            <p class="chat-date text-muted">10 min ago</p>
-          </div>
         </div>
       </div>
       <mat-divider></mat-divider>
 
       <!-- Input box and send button -->
       <div class="chat-input-actions" fxLayout="row">
+        <form class="chatForm" name="chatForm" (ngSubmit)="sendMessage();">
         <mat-form-field class="full-width mr-1">
           <input
           matInput
           placeholder="Type your message"
-          value="">
+          [(ngModel)]="comment"
+          name="comment"
+          >
         </mat-form-field>
-        <button mat-fab color="primary"><mat-icon>send</mat-icon></button>
+        <button type="submit" mat-fab color="primary"><mat-icon>send</mat-icon></button>
+        </form>
       </div>
 
     </div>

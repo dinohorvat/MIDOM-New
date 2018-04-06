@@ -73,6 +73,14 @@ export class ConsultationRequestsComponent implements OnInit {
 
 
     }
+    showImages(data){
+        Promise.resolve(this.studyService.fetchDICOM(data.study)).then(res =>{
+
+            console.log(res);
+        }).catch(err => {
+
+        });
+    }
 
     getConsultationRequest(status) {
         this.consultationRequestList = [];

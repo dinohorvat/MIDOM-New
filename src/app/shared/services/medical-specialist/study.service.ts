@@ -36,7 +36,7 @@ export class StudyService {
                 console.log("UTILs");
 
                     JSZip.loadAsync(res).then(function (zip) {
-                        console.log("data")
+                        console.log("data");
                         console.log(zip.files)
                 });
             }
