@@ -1,0 +1,61 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<div fxLayout="row" fxLayoutWrap="wrap" >
+  <div
+          fxFlex="100"
+          fxFlex.gt-sm="50">
+    <mat-card class="user-card p-0">
+      <mat-card-title class="mat-bg-primary">
+        <div class="card-title-text">
+          <a class="toolbar-avatar md mr-1"><img [src]="'assets/images/face-4.jpg'" alt=""></a>
+          <span>{{study.name}}</span>
+          <span fxFlex></span>
+          <button mat-icon-button [matMenuTriggerFor]="userMenu" class="">
+            <mat-icon class="">more_vert</mat-icon>
+          </button>
+          <mat-menu #userMenu="matMenu">
+            <button mat-menu-item>Follow</button>
+            <button (click)="close();" [routerLink]="['/ms/message']" mat-menu-item>Message</button>
+            <button mat-menu-item>Block</button>
+            <button mat-menu-item>Delete</button>
+          </mat-menu>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+      <mat-card-content>
+        <!-- user detail lines-->
+        <div class="user-details">
+          <p><mat-icon matTooltip="ID" class="text-muted">card_membership</mat-icon>{{study.id}}</p>
+          <p><mat-icon matTooltip="Date" class="text-muted">date_range</mat-icon>{{study.creationDate | dateMs}}</p>
+          <p><mat-icon matTooltip="Open" class="text-muted">location_on</mat-icon>{{study.open}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div
+          fxFlex="100"
+          fxFlex.gt-sm="50">
+    <mat-card class="user-card p-0">
+      <mat-card-title class="mat-bg-primary">
+        <div class="card-title-text">
+          <a class="toolbar-avatar md mr-1"><img [src]="'assets/images/face-4.jpg'" alt=""></a>
+          <span>{{studyOwner.username}}</span>
+          <span fxFlex></span>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+      <mat-card-content>
+        <!-- user detail lines-->
+        <div class="user-details">
+          <p><mat-icon matTooltip="Name" class="text-muted">account_circle</mat-icon>{{studyOwner.firstName}} {{studyOwner.lastName}}</p>
+          <p><mat-icon matTooltip="Organisation" class="text-muted">account_balance</mat-icon>{{studyOwner.organisation}}</p>
+          <p><mat-icon matTooltip="Email" class="text-muted">email</mat-icon>{{studyOwner.email}}</p>
+          <p><mat-icon matTooltip="Phone" class="text-muted">phone</mat-icon>{{studyOwner.telephon</p>
+          <p><mat-icon matTooltip="Location" class="text-muted">location_on</mat-icon>{{studyOwner.location}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>
+<button mat-raised-button (click)="close();">Close</button>
+

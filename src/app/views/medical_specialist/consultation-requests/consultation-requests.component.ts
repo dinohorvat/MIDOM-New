@@ -4,6 +4,12 @@ import {ConsultationRequestModel} from '../../../shared/models/consultation-requ
 import {CrMessageModel} from '../../../shared/models/cr-message.model';
 import {ConsultationRequestsService} from '../../../shared/services/medical-specialist/consultation-requests.service';
 import {GlobalService} from '../../../shared/services/global.service';
+import {NgxTablePopupComponent} from '../ngx-table-popup/ngx-table-popup.component';
+import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {AppConfirmService} from '../../../shared/services/app-confirm/app-confirm.service';
+import {AppLoaderService} from '../../../shared/services/app-loader/app-loader.service';
+import {StudyService} from '../../../shared/services/medical-specialist/study.service';
+import {AccountService} from '../../../shared/services/medical-specialist/account.service';
 
 @Component({
     selector: 'app-consultation-requests',
@@ -21,7 +27,7 @@ export class ConsultationRequestsComponent implements OnInit {
         "Pending","Accepted","Consulted", "Closed", "Rejected","Revoked"
     ];
     selectedStatus:string = "Pending";
-
+    activeCr: any;
     ngOnInit() {
         this.getConsultationRequest("Pending");
     }
@@ -32,7 +38,40 @@ export class ConsultationRequestsComponent implements OnInit {
 
     constructor(private consultationRequestService: ConsultationRequestsService,
                 private router: Router,
-                public globalService: GlobalService) {
+                private studyService: StudyService,
+                public globalService: GlobalService,
+                private dialog: MatDialog,
+                private snack: MatSnackBar,
+                private confirmService: AppConfirmService,
+                private loader: AppLoaderService,
+                private accountService: AccountService) {
+    }
+
+    showStudy(data) {
+        this.activeCr = data.id;
+        this.getCrMessages(this.activeCr);
+        console.log(data);
+            Promise.resolve(this.studyService.fetchStudy(data.study).then(studyRes =>{
+                Promise.resolve(this.accountService.fetchAccountDetails(studyRes.message.ownerId).then(res=>{
+                    studyRes.message.studyOwner = res.message;
+                    console.log("STUDY");
+                    console.log(studyRes);
+                    let title = 'Study Information';
+                    let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
+                        width: '720px',
+                        disableClose: true,
+                        data: {title: title, payload: studyRes.message, activeCr:this.activeCr}
+                    });
+
+                }).catch(err=>{
+
+                }));
+
+            }).catch(err=>{
+
+            }));
+
+
     }
 
     getConsultationRequest(status) {
@@ -47,16 +86,13 @@ export class ConsultationRequestsComponent implements OnInit {
             }))
     }
     getCrMessages(id) {
-        console.log(id);
         this.crMessageList = [];
         Promise.resolve(this.consultationRequestService
             .fetchCrMessages(id).then(res => {
                 this.crMessageList = res.message;
                 console.log(this.crMessageList);
-                // this.globalService.crMessageList = this.crMessageList;
-                // this.globalService.crId = id;
-                // this.router.navigate(['/main/chat']);
-                // console.log(res.message);
+                this.globalService.crMessageList = this.crMessageList;
+                this.globalService.crId = id;
             }).catch(err => {
                 console.log(err);
             }))

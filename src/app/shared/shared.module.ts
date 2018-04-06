@@ -67,6 +67,7 @@ import {ConsultationRequestsService} from './services/medical-specialist/consult
 import {MedicalSpecialistService} from './services/medical-specialist/medical-specialist.service';
 import {SpecialisationsService} from './services/medical-specialist/specialisations.service';
 import {DatemsPipe} from './pipes/datems.pipe';
+import {StudyService} from './services/medical-specialist/study.service';
 
 const classesToInclude = [
   
@@ -129,7 +130,8 @@ const classesToInclude = [
     AccountService,
     ConsultationRequestsService,
     MedicalSpecialistService,
-    SpecialisationsService
+    SpecialisationsService,
+    StudyService
   ],
   declarations: classesToInclude,
   exports: classesToInclude

@@ -18,16 +18,26 @@
                                 [columnMode]="'flex'"
                                 [headerHeight]="50"
                                 [footerHeight]="50"
-                                [limit]="10"
+                                [limit]="5"
                                 [rowHeight]="'auto'">
-                            <ngx-datatable-column name="Id" [flexGrow]="1">
+                            <ngx-datatable-column name="ID" [flexGrow]="1">
                                 <ng-template let-row="row" ngx-datatable-cell-template>
                                     {{ row?.id }}
                                 </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Creation Date" [flexGrow]="1">
+                            <ngx-datatable-column name="Creation Time" [flexGrow]="1">
                                 <ng-template let-row="row" ngx-datatable-cell-template>
                                     {{ row?.creationTime | dateMs }}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Acceptance Time" [flexGrow]="1">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{ row?.acceptanceTime | dateMs }}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="View Study" [flexGrow]="1">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <button (click)="showStudy(row)" mat-raised-button color="primary">Show</button>
                                 </ng-template>
                             </ngx-datatable-column>
                         </ngx-datatable>

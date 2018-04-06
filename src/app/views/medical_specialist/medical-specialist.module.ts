@@ -15,7 +15,7 @@ import {
     MatRadioModule,
     MatTabsModule,
     MatInputModule,
-    MatProgressBarModule, MatTooltipModule, MatDialogModule, MatSnackBarModule
+    MatProgressBarModule, MatTooltipModule, MatDialogModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule
 } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -24,6 +24,8 @@ import {ConsultationRequestsComponent} from './consultation-requests/consultatio
 import {MedicalSpecialistRoutes} from './medical-specialist.routing';
 import {AppLoaderModule} from '../../shared/services/app-loader/app-loader.module';
 import {AppConfirmModule} from '../../shared/services/app-confirm/app-confirm.module';
+import {NgxTablePopupComponent} from './ngx-table-popup/ngx-table-popup.component';
+import {AppChatsComponent} from './app-chats/app-chats.component';
 
 
 
@@ -42,6 +44,8 @@ import {AppConfirmModule} from '../../shared/services/app-confirm/app-confirm.mo
         MatCheckboxModule,
         MatRadioModule,
         MatTabsModule,
+        MatToolbarModule,
+        MatSidenavModule,
         MatInputModule,
         MatProgressBarModule,
         NgxDatatableModule,
@@ -57,7 +61,11 @@ import {AppConfirmModule} from '../../shared/services/app-confirm/app-confirm.mo
         RouterModule.forChild(MedicalSpecialistRoutes)
     ],
     declarations: [
-        ConsultationRequestsComponent
-    ]
+        ConsultationRequestsComponent,
+        NgxTablePopupComponent,
+        AppChatsComponent
+    ],
+    entryComponents: [NgxTablePopupComponent]
+
 })
 export class MedicalSpecialistModule { }
