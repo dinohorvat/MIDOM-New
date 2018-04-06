@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private medicalSpecialistService: MedicalSpecialistService) { }
 
   user: MedicalSpecialistModel = new MedicalSpecialistModel();
+  isAvailable: boolean = false;
   ngOnInit() {
     this.getUser();
       this.router.navigate(['/dashboard/profile-overview']);
@@ -23,11 +24,31 @@ export class DashboardComponent implements OnInit {
             .then(response => {
                 let res: any = response;
                 this.user = res.message;
-                console.log(this.user);
+                this.isAvailable = this.user.isAvailable;
             }).catch(err => {
             console.log(err);
         })
 
     }
+    changeStatus(state){
+        let currStatus;
+        if(state.checked){
+            currStatus = 'available';
+        }
+        else{
+            currStatus = 'not available';
+        }
+        let data = {
+            status: currStatus
+        };
+        console.log(data);
+        Promise.resolve(this.medicalSpecialistService.changeStatus(data))
+            .then(response => {
+
+            }).catch(err => {
+            console.log(err);
+        })
+    }
+
 
 }
