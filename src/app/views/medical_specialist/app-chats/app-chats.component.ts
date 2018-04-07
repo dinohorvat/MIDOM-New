@@ -31,10 +31,11 @@ export class AppChatsComponent implements OnInit {
     photo: 'assets/images/face-2.jpg',
     isOnline: true,
     lastMsg: 'What\'s going!'
-  }]
+  }];
     crMessageList: CrMessageModel[] = [];
     crId: any;
     comment: any;
+    disabled: boolean = false;
     constructor(private media: ObservableMedia,
                 private consultationRequestsService: ConsultationRequestsService,
                 private globalService: GlobalService, private router: Router) {
@@ -48,6 +49,10 @@ export class AppChatsComponent implements OnInit {
       console.log(this.globalService.crMessageList);
       this.crMessageList = this.globalService.crMessageList;
       this.crId = this.globalService.crId;
+      if(this.globalService.crStatus == 'Closed' || this.globalService.crStatus == 'Rejected'
+      || this.globalService.crStatus == 'Revoked'){
+          this.disabled = true;
+      }
       this.chatSideBarInit();
   }
   ngOnDestroy() {

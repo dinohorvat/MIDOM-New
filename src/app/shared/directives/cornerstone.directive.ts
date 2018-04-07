@@ -2,9 +2,7 @@ import {Directive, ElementRef, HostListener,  Input, OnInit} from '@angular/core
 
 
 declare const cornerstone;
-
-
-
+declare const cornerstoneTools;
 
 @Directive({
     selector: '[cornerstone]',
@@ -84,12 +82,17 @@ export class CornerstoneDirective implements OnInit {
         console.log("IMAGE");
         console.log(image);
         cornerstone.displayImage(this.element, image);
+        cornerstoneTools.mouseInput.enable(this.element);
+        cornerstoneTools.mouseWheelInput.enable(this.element);
+          cornerstoneTools.wwwc.activate(this.element, 1); // ww/wc is the default tool for left mouse button
+          cornerstoneTools.pan.activate(this.element, 2); // pan is the default tool for middle mouse button
+          cornerstoneTools.zoom.activate(this.element, 4); // zoom is the default tool for right mouse button
+          cornerstoneTools.zoomWheel.activate(this.element); // zoom is the default tool for middle mouse wheel
     }
 
 
       //   cornerstone.displayImage(element, image);
-      //   cornerstoneTools.mouseInput.enable(element);
-      //   cornerstoneTools.mouseWheelInput.enable(element);
+
       //
       //   // Enable all tools we want to use with this element
       //   cornerstoneTools.wwwc.activate(element, 1); // ww/wc is the default tool for left mouse button

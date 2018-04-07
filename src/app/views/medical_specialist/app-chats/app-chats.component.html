@@ -1,3 +1,4 @@
+<small>Responding to a study means that you are willing to accept it</small>
 <mat-card class="p-0">
   <mat-sidenav-container class="chat-container">
     <!-- Left sidebar -->
@@ -117,7 +118,7 @@
           name="comment"
           >
         </mat-form-field>
-        <button type="submit" mat-fab color="primary"><mat-icon>send</mat-icon></button>
+        <button [disabled]="disabled" type="submit" mat-fab color="primary"><mat-icon>send</mat-icon></button>
         </form>
       </div>
 

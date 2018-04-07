@@ -44,13 +44,6 @@ export class NavigationService {
       state: 'ms/consultation-requests'
     },
       {
-      name: 'Studies',
-      type: 'link',
-      tooltip: 'Studies',
-      icon: 'local_hospital',
-      state: 'ms/studies'
-    },
-      {
           name: 'DICOM Viewer',
           type: 'link',
           tooltip: 'DICOM',

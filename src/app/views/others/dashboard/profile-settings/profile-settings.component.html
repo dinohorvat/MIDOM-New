@@ -180,13 +180,13 @@
         <div class="mb-1">
             <p>Choose your admin panel color schemes.</p>
             <mat-radio-group fxLayout="column" fxLayoutGap="4px">
-              <mat-radio-button (change)="changeTheme(themeService.egretThemes[0])" value="indigo">Indigo</mat-radio-button>
-              <mat-radio-button (change)="changeTheme(themeService.egretThemes[1])" value="blue">Blue</mat-radio-button>
-              <mat-radio-button (change)="changeTheme('pink')" value="pink">Pink</mat-radio-button>
-              <mat-radio-button (change)="changeTheme('purple')" value="purple">Purple</mat-radio-button>
+              <mat-radio-button (change)="changeTheme(3)" value="indigo">Indigo</mat-radio-button>
+              <mat-radio-button (change)="changeTheme(2)" value="blue">Blue</mat-radio-button>
+              <mat-radio-button (change)="changeTheme(1)" value="pink">Pink</mat-radio-button>
+              <mat-radio-button (change)="changeTheme(0)" value="purple">Purple</mat-radio-button>
             </mat-radio-group>
         </div>
-        <button mat-raised-button color="primary">Save</button>
+        <button (click)="saveTheme()" mat-raised-button color="primary">Save</button>
       </mat-card-content>
     </mat-tab>
   </mat-tab-group>

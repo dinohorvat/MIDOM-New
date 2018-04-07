@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output, Renderer2 } from '@angu
 import { ThemeService } from '../../services/theme.service';
 import { LayoutService } from '../../services/layout.service';
 import { TranslateService } from 'ng2-translate/ng2-translate';
+import {GlobalService} from '../../services/global.service';
 
 @Component({
   selector: 'app-header-side',
@@ -23,11 +24,13 @@ export class HeaderSideComponent implements OnInit {
     private themeService: ThemeService,
     private layout: LayoutService,
     public translate: TranslateService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    public globalService: GlobalService
   ) {}
   ngOnInit() {
     this.egretThemes = this.themeService.egretThemes;
     this.layoutConf = this.layout.layoutConf;
+    this.globalService.getConsultationRequest("Pending");
   }
   setLang() {
     this.translate.use(this.currentLang)

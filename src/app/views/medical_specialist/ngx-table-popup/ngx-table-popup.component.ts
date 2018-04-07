@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {StudyOwnerModel} from '../../../shared/models/consultation-request.model';
 import {StudyModel} from '../../../shared/models/study.model';
+import {ConsultationRequestsService} from '../../../shared/services/medical-specialist/consultation-requests.service';
 
 declare var cornerstone: any;
 @Component({
@@ -19,6 +20,7 @@ export class NgxTablePopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<NgxTablePopupComponent>,
     private fb: FormBuilder,
+    private consultationRequestService: ConsultationRequestsService
   ) { }
 
     private dicomHolder: ElementRef;
@@ -142,5 +144,32 @@ export class NgxTablePopupComponent implements OnInit {
         }
         console.log(pixelData);
         return pixelData;
+    }
+
+    acceptCr(){
+        let data = {
+            requestId: this.activeCr.toString()
+        };
+        Promise.resolve(this.consultationRequestService.acceptCr(data)
+            .then(res => {
+                console.log(res);
+                this.dialogRef.close("reject");
+            }).catch(err =>{
+                    console.log(err);
+                }
+            ))
+    }
+    rejectCr(){
+        let data = {
+            requestId: this.activeCr.toString()
+        };
+        Promise.resolve(this.consultationRequestService.rejectCr(data)
+            .then(res => {
+                console.log(res);
+                this.dialogRef.close("reject");
+            }).catch(err =>{
+                    console.log(err);
+                }
+            ))
     }
 }

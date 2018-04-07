@@ -33,6 +33,9 @@ export class ThemeService {
   ) {}
 
   // Invoked in AppComponent and apply 'activatedTheme' on startup
+  getActiveTheme(){
+    return localStorage.getItem("theme");
+  }
   applyMatTheme(r: Renderer2) {
     /*
     ****** (SET YOUR DEFAULT THEME HERE) *******
@@ -40,9 +43,14 @@ export class ThemeService {
     */
     // this.activatedTheme = this.egretThemes[0]; 
     // this.activatedTheme = this.egretThemes[1]; 
-    // this.activatedTheme = this.egretThemes[2]; 
-    this.activatedTheme = this.egretThemes[3];
-
+    // this.activatedTheme = this.egretThemes[2];
+    if(this.getActiveTheme()){
+      let themeNo = this.getActiveTheme();
+      this.activatedTheme = this.egretThemes[parseInt(themeNo)];
+    }
+    else{
+        this.activatedTheme = this.egretThemes[3];
+    }
     this.changeTheme(r, this.activatedTheme)
   }
 

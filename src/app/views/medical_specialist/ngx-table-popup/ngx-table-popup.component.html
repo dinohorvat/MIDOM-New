@@ -6,17 +6,16 @@
     <mat-card class="user-card p-0">
       <mat-card-title class="mat-bg-primary">
         <div class="card-title-text">
-          <a class="toolbar-avatar md mr-1"><img [src]="'assets/images/face-4.jpg'" alt=""></a>
+          <a class="toolbar-avatar md mr-1"><img [src]="'assets/images/study2.png'" alt=""></a>
           <span>{{study.name}}</span>
           <span fxFlex></span>
           <button mat-icon-button [matMenuTriggerFor]="userMenu" class="">
             <mat-icon class="">more_vert</mat-icon>
           </button>
           <mat-menu #userMenu="matMenu">
-            <button mat-menu-item>Follow</button>
             <button (click)="close();" [routerLink]="['/ms/message']" mat-menu-item>Message</button>
-            <button mat-menu-item>Block</button>
-            <button mat-menu-item>Delete</button>
+            <button (click)="acceptCr();"mat-menu-item>Accept</button>
+            <button (click)="rejectCr();"mat-menu-item>Reject</button>
           </mat-menu>
         </div>
         <mat-divider></mat-divider>
@@ -37,7 +36,7 @@
     <mat-card class="user-card p-0">
       <mat-card-title class="mat-bg-primary">
         <div class="card-title-text">
-          <a class="toolbar-avatar md mr-1"><img [src]="'assets/images/face-4.jpg'" alt=""></a>
+          <a class="toolbar-avatar md mr-1"><img [src]="'assets/images/face-2.jpg'" alt=""></a>
           <span>{{studyOwner.username}}</span>
           <span fxFlex></span>
         </div>
@@ -58,7 +57,7 @@
 
 </div>
 
-<div   fxLayout="row" fxLayoutWrap="wrap" >
+<div *ngIf="data.dicom == true"  fxLayout="row" fxLayoutWrap="wrap" >
   <div
           fxFlex="100"
           fxFlex.gt-sm="100">

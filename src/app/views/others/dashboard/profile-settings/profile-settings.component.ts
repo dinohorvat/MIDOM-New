@@ -28,6 +28,7 @@ export class ProfileSettingsComponent implements OnInit {
     userSpecialisations: SpecialisationModel[] = [];
     specialisationsList: SpecialisationModel[] = [];
 
+    selectedTheme: string;
     ngOnInit() {
         this.getUser();
         this.egretThemes = this.themeService.egretThemes;
@@ -139,8 +140,11 @@ export class ProfileSettingsComponent implements OnInit {
       }))
     }
     changeTheme(theme) {
-        this.themeService.changeTheme(this.renderer, theme);
+        this.selectedTheme = theme
     }
-
+    saveTheme(){
+        localStorage.setItem("theme",this.selectedTheme);
+        window.location.reload();
+    }
 
 }

@@ -1,9 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CornerstoneService} from '../../../shared/services/cornerstone.service';
 
-declare const cornerstone;
-declare const cornerstoneWADOImageLoader;
-
 @Component({
     selector: 'app-dicom-viewer',
     templateUrl: './dicom-viewer.component.html',
@@ -12,11 +9,8 @@ declare const cornerstoneWADOImageLoader;
 })
 export class DicomViewerComponent implements OnInit {
 
-    @ViewChild('dicomHolder') dicomHolder;
     imageData:any;
-    constructor(private ref:ChangeDetectorRef,
-                private csS: CornerstoneService){
-        cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+    constructor(private csS: CornerstoneService){
 
     }
     ngOnInit(){
@@ -30,17 +24,5 @@ export class DicomViewerComponent implements OnInit {
             .subscribe(res =>  this.imageData = res);
         // const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
         // this.loadAndViewImage(imageId);
-    }
-    loadAndViewImage(imageId) {
-        const element = this.dicomHolder.nativeElement;
-        cornerstone.loadImage(imageId).then(function(image) {
-            console.log("IMAGE");
-            console.log(image);
-            cornerstone.displayImage(element, image);
-        }, function(err) {
-            alert(err);
-        });
-        this.ref.markForCheck();
-
     }
 }

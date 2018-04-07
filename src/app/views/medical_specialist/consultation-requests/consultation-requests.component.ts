@@ -55,6 +55,7 @@ export class ConsultationRequestsComponent implements OnInit {
 
     showStudy(data) {
         this.activeCr = data.id;
+        this.globalService.crStatus = data.status;
         this.getCrMessages(this.activeCr);
         console.log(data);
             Promise.resolve(this.studyService.fetchStudy(data.study).then(studyRes =>{
@@ -68,6 +69,13 @@ export class ConsultationRequestsComponent implements OnInit {
                         disableClose: true,
                         data: {dicom:false, title: title, payload: studyRes.message, activeCr:this.activeCr}
                     });
+                    dialogRef.afterClosed()
+                        .subscribe(res => {
+                            console.log(res);
+                            if(res == 'reject'){
+                                this.getConsultationRequest("Pending");
+                            }
+                        });
 
                 }).catch(err=>{
 
@@ -99,6 +107,8 @@ export class ConsultationRequestsComponent implements OnInit {
             .fetchConsultationRequest(status).then(res => {
                 this.consultationRequestList = res.message;
                 this.consultationRequestList.reverse();
+                if(status == "Pending"){
+                }
                 console.log(this.consultationRequestList);
             }).catch(err => {
                 console.log(err);
@@ -117,31 +127,5 @@ export class ConsultationRequestsComponent implements OnInit {
             }))
     }
 
-    acceptCr(id){
-        let data = {
-            requestId: id.toString()
-        };
-        Promise.resolve(this.consultationRequestService.acceptCr(data)
-            .then(res => {
-                this.getConsultationRequest("Pending");
-                console.log(res);
-            }).catch(err =>{
-                    console.log(err);
-                }
-            ))
-     }
-     rejectCr(id){
-        let data = {
-            requestId: id.toString()
-        };
-        Promise.resolve(this.consultationRequestService.rejectCr(data)
-            .then(res => {
-                this.getConsultationRequest("Pending");
-                console.log(res);
-            }).catch(err =>{
-                    console.log(err);
-                }
-            ))
-     }
     }
 

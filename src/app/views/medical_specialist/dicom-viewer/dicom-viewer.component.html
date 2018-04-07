@@ -1,3 +1,5 @@
+<div id="dicom">
+
     <div id="loadProgress">Image Load Progress:</div>
 
     <div class="row">
@@ -24,13 +26,9 @@
             <!--</div>-->
         <!--</div>-->
     <!--</div>-->
-
-    <div id="dicomWrapper"
-
-         class='disable-selection noIbar'
-         unselectable='on'
-         onselectstart='return false;'
-         onmousedown='return false;'>
+    <div id="dicomImageWrapper" style="width:512px;height:512px;position:relative;color:white"
+         oncontextmenu="return false"
+         onmousedown="return false">
 
         <div cornerstone
              [image]="imageData"
@@ -38,6 +36,20 @@
              style="height: 100%;">
         </div>
 
+        <div id="topleft" class="overlay" style="position:absolute;top:0px;left:0px">
+            Patient Name
+        </div>
+        <div id="topright" class="overlay" style="position:absolute;top:0px;right:0px">
+            Render Time:
+        </div>
+        <div id="bottomright" class="overlay" style="position:absolute;bottom:0px;right:0px">
+            Zoom:
+        </div>
+        <div id="bottomleft" class="overlay" style="position:absolute;bottom:0px;left:0px">
+            WW/WC:
+        </div>
     </div>
+
+</div>
 
 
