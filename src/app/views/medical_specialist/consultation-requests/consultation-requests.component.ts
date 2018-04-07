@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
 import {ConsultationRequestModel} from '../../../shared/models/consultation-request.model';
 import {CrMessageModel} from '../../../shared/models/cr-message.model';
@@ -11,6 +11,7 @@ import {AppLoaderService} from '../../../shared/services/app-loader/app-loader.s
 import {StudyService} from '../../../shared/services/medical-specialist/study.service';
 import {AccountService} from '../../../shared/services/medical-specialist/account.service';
 
+declare var cornerstone: any;
 @Component({
     selector: 'app-consultation-requests',
     templateUrl: './consultation-requests.component.html',
@@ -28,8 +29,40 @@ export class ConsultationRequestsComponent implements OnInit {
     ];
     selectedStatus:string = "Pending";
     activeCr: any;
+    @ViewChild('abc') abc;
+
+    dynamicImage:any;
     ngOnInit() {
+        this.dynamicImage = {
+            imageId: "notneeded",
+            minPixelValue: 0,
+            maxPixelValue: 255,
+            slope: 1.0,
+            intercept: 0,
+            windowCenter: 127,
+            windowWidth: 256,
+            render: cornerstone.renderGrayscaleImage,
+            getPixelData: this.getPixelData,
+            rows: 256,
+            columns: 256,
+            height: 256,
+            width: 256,
+            color: false,
+            columnPixelSpacing: 1.0,
+            rowPixelSpacing: 1.0,
+            invert: false,
+            sizeInBytes: 256 * 256 * 2,
+            data: {
+                opacity: 0.5
+            }
+        };
+
+        console.log(this.dynamicImage);
         this.getConsultationRequest("Pending");
+        cornerstone.enable(this.abc.nativeElement);
+        cornerstone.displayImage(this.abc.nativeElement, this.dynamicImage);
+
+
     }
 
     statusChange(status){
@@ -60,7 +93,7 @@ export class ConsultationRequestsComponent implements OnInit {
                     let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
                         width: '720px',
                         disableClose: true,
-                        data: {title: title, payload: studyRes.message, activeCr:this.activeCr}
+                        data: {dicom:false, title: title, payload: studyRes.message, activeCr:this.activeCr}
                     });
 
                 }).catch(err=>{
@@ -74,9 +107,14 @@ export class ConsultationRequestsComponent implements OnInit {
 
     }
     showImages(data){
+        let title = 'Study Information';
+        let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
+            width: '720px',
+            disableClose: true,
+            data: {dicom:true, title: title,  payload: {}, activeCr:this.activeCr}
+        });
         Promise.resolve(this.studyService.fetchDICOM(data.study)).then(res =>{
 
-            console.log(res);
         }).catch(err => {
 
         });
@@ -132,5 +170,20 @@ export class ConsultationRequestsComponent implements OnInit {
                 }
             ))
      }
+     getPixelData() {
+        const width = 256;
+        const height = 256;
+        const numPixels = width * height;
+        const pixelData = new Uint16Array(numPixels);
+        let index = 0;
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                pixelData[index] = ((x) % 256) * 1;
+                index++;
+            }
+        }
+        console.log(pixelData);
+        return pixelData;
+    }
     }
 

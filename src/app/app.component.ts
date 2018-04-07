@@ -11,7 +11,7 @@ import { ThemeService } from './shared/services/theme.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  appTitle = 'Egret';
+  appTitle = 'Midom';
   pageTitle = '';
 
   constructor(

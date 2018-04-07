@@ -1,5 +1,5 @@
 <h1 matDialogTitle>{{data.title}}</h1>
-<div fxLayout="row" fxLayoutWrap="wrap" >
+<div *ngIf="data.dicom == false" fxLayout="row" fxLayoutWrap="wrap" >
   <div
           fxFlex="100"
           fxFlex.gt-sm="50">
@@ -57,5 +57,22 @@
   </div>
 
 </div>
+
+<div  *ngIf="data.dicom == true" fxLayout="row" fxLayoutWrap="wrap" >
+  <div
+          fxFlex="100"
+          fxFlex.gt-sm="100">
+    <div class="container">
+
+      <div #dicomHolder id="dicomImage" style="width:512px;height:512px"
+           oncontextmenu="return false"
+           onmousedown="return false">
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
 <button mat-raised-button (click)="close();">Close</button>
 
