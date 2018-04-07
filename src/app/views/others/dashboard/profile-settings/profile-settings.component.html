@@ -133,7 +133,7 @@
           <p>Specialisations</p>
           <mat-checkbox *ngFor="let specialisation of allSpecialisations"
                   name="rememberMe"
-                  class="pb-1">{{specialisation.name}}</mat-checkbox>
+                  class="pb-1 specs">{{specialisation.name}}</mat-checkbox>
         </div>
         <button mat-raised-button (click)="updateSpecialisations();" color="primary">Save</button>
       </mat-card-content>

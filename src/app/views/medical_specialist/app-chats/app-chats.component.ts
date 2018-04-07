@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
 import { MediaChange, ObservableMedia } from "@angular/flex-layout";
 import { MatSidenav, MatDialog } from '@angular/material';
@@ -17,7 +17,10 @@ export class AppChatsComponent implements OnInit {
   isMobile;
   screenSizeWatcher: Subscription;
   isSidenavOpen: Boolean = true;
+  audioShow: boolean = true;
+  audioFile: any;
   @ViewChild(MatSidenav) private sideNave: MatSidenav;
+    @ViewChild('audioOption') audioPlayerRef: ElementRef;
 
   activeChatUser = {
     name: 'Test test',
@@ -62,6 +65,7 @@ export class AppChatsComponent implements OnInit {
   }
 
   sendMessage(){
+      if(this.comment !== 'AudioFile'){
       let message: CrMessageModel = new CrMessageModel();
       message.msSender = "1";
       message.comment = this.comment;
@@ -84,7 +88,42 @@ export class AppChatsComponent implements OnInit {
                   console.log(err);
               }
           ));
+      }
+      else{
+          Promise.resolve(this.consultationRequestsService.uploadAudioFile(this.audioFile, this.crId)
+              .then(res => {
+                  console.log(res);
+                    this.comment = '';
+              }).catch(err =>{
+                      console.log(err);
+                  }
+              ));
 
+      }
+
+  }
+
+  uploadFile(){
+        console.log('upload');
+        let element: HTMLElement = document.getElementById("audioFile") as HTMLElement;
+        element.click();
+  }
+  uploadAudio(e){
+      this.audioShow = false;
+      let audio = this.audioPlayerRef.nativeElement;
+      console.log(e.target.files[0]);
+      let file = e.target.files[0];
+      let reader = new FileReader();
+      let tempFile = this.audioFile;
+      reader.onload = function (event:any) {
+          console.log(event);
+          audio.src = event.target.result;
+          tempFile = audio.src;
+          audio.load();
+          audio.play();
+      };
+      this.comment = "AudioFile";
+      reader.readAsDataURL(file);
   }
 
   changeActiveUser(user) {

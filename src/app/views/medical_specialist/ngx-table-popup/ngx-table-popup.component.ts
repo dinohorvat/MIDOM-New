@@ -4,6 +4,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {StudyOwnerModel} from '../../../shared/models/consultation-request.model';
 import {StudyModel} from '../../../shared/models/study.model';
 import {ConsultationRequestsService} from '../../../shared/services/medical-specialist/consultation-requests.service';
+import {GlobalService} from '../../../shared/services/global.service';
+import {StudyService} from '../../../shared/services/medical-specialist/study.service';
 
 declare var cornerstone: any;
 @Component({
@@ -16,11 +18,14 @@ export class NgxTablePopupComponent implements OnInit {
     study: StudyModel = new StudyModel();
     studyOwner: StudyOwnerModel = new StudyOwnerModel();
     activeCr: any;
+    crStatus: string = '';
     constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<NgxTablePopupComponent>,
     private fb: FormBuilder,
-    private consultationRequestService: ConsultationRequestsService
+    private consultationRequestService: ConsultationRequestsService,
+    private globalService: GlobalService,
+    private studyService: StudyService
   ) { }
 
     private dicomHolder: ElementRef;
@@ -31,6 +36,7 @@ export class NgxTablePopupComponent implements OnInit {
 
   dynamicImage:any;
   ngOnInit() {
+      this.crStatus = this.globalService.crStatus;
     this.study = this.data.payload;
     this.studyOwner = this.data.payload.studyOwner;
     this.activeCr = this.data.activeCr;
@@ -171,5 +177,29 @@ export class NgxTablePopupComponent implements OnInit {
                     console.log(err);
                 }
             ))
+    }
+
+    getCompressedStudy(){
+        Promise.resolve(this.studyService.fetchStudyArchiveCompressed(this.study.id)
+            .then(res => {
+                let url= window.URL.createObjectURL(res);
+                window.open(url);
+            }).catch(err => {
+                if(err.status == 500){
+                    this.globalService.showNotice("No Archive Files for this study!")
+                }
+            }))
+
+    }
+    getUncompressedStudy(){
+        Promise.resolve(this.studyService.fetchStudyArchiveUncompressed(this.study.id)
+            .then(res => {
+                let url= window.URL.createObjectURL(res);
+                window.open(url);
+            }).catch(err => {
+                if(err.status == 500){
+                    this.globalService.showNotice("No Archive Files for this study!")
+                }
+            }))
     }
 }

@@ -1,0 +1,9 @@
+.specs .mat-checkbox-inner-container{
+    margin: 0 !important;
+}
+.specs .mat-checkbox-layout{
+    width: 50% !important;
+}
+.specs .mat-checkbox-label{
+    margin-left: 10px !important;
+}

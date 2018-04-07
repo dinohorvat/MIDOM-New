@@ -14,8 +14,10 @@
           </button>
           <mat-menu #userMenu="matMenu">
             <button (click)="close();" [routerLink]="['/ms/message']" mat-menu-item>Message</button>
-            <button (click)="acceptCr();"mat-menu-item>Accept</button>
+            <span *ngIf="crStatus == 'Pending'">
+              <button (click)="acceptCr();"mat-menu-item>Accept</button>
             <button (click)="rejectCr();"mat-menu-item>Reject</button>
+           </span>
           </mat-menu>
         </div>
         <mat-divider></mat-divider>
@@ -25,7 +27,7 @@
         <div class="user-details">
           <p><mat-icon matTooltip="ID" class="text-muted">card_membership</mat-icon>{{study.id}}</p>
           <p><mat-icon matTooltip="Date" class="text-muted">date_range</mat-icon>{{study.creationDate | dateMs}}</p>
-          <p><mat-icon matTooltip="Open" class="text-muted">location_on</mat-icon>{{study.open}}</p>
+          <p><mat-icon matTooltip="Open" class="text-muted">check_circle</mat-icon>{{study.open}}</p>
         </div>
       </mat-card-content>
     </mat-card>
@@ -74,4 +76,10 @@
 </div>
 
 <button mat-raised-button (click)="close();">Close</button>
+<button (click)="getUncompressedStudy()" matTooltip="Download Uncompressed" mat-raised-button>
+  <mat-icon aria-label="Download">file_download</mat-icon>
+</button>
+<button (click)="getCompressedStudy()" matTooltip="Download Compressed" mat-raised-button>
+  <mat-icon aria-label="Download">cloud_download</mat-icon>
+</button>
 

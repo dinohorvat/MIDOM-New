@@ -109,8 +109,12 @@
 
       <!-- Input box and send button -->
       <div class="chat-input-actions" fxLayout="row">
+        <!--<audio controls id="myAudio" autoplay></audio>-->
+        <audio [hidden]="audioShow" #audioOption controls id="myAudio" autoplay></audio>
         <form class="chatForm" name="chatForm" (ngSubmit)="sendMessage();">
-        <mat-form-field class="full-width mr-1">
+          <button (click)="uploadFile();" type="button" mat-icon-button><mat-icon>attachment</mat-icon></button>
+          <input (change)="uploadAudio($event)" accept = ".mp3" hidden id="audioFile" type="file"/>
+          <mat-form-field class="full-width mr-1">
           <input
           matInput
           placeholder="Type your message"
@@ -118,7 +122,7 @@
           name="comment"
           >
         </mat-form-field>
-        <button [disabled]="disabled" type="submit" mat-fab color="primary"><mat-icon>send</mat-icon></button>
+          <button [disabled]="disabled" type="submit" mat-fab color="primary"><mat-icon>send</mat-icon></button>
         </form>
       </div>
 

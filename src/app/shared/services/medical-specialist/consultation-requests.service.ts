@@ -17,7 +17,7 @@ export class ConsultationRequestsService {
                 var data:any = response;
                 if(data.code == 1){
                     localStorage.removeItem("midom_user");
-                    this.router.navigate(['login']);
+                    this.router.navigate(['sessions/signin']);
                     return false;
                 }
                 console.log(data);
@@ -33,7 +33,7 @@ export class ConsultationRequestsService {
                 var data:any = response;
                 if(data.code == 1){
                     localStorage.removeItem("midom_user");
-                    this.router.navigate(['login']);
+                    this.router.navigate(['sessions/signin']);
                     return false;
                 }
                 console.log(data);
@@ -50,7 +50,7 @@ export class ConsultationRequestsService {
                 var data:any = response;
                 if(data.code == 1){
                     localStorage.removeItem("midom_user");
-                    this.router.navigate(['login']);
+                    this.router.navigate(['sessions/signin']);
                     return false;
                 }
                 console.log(data);
@@ -67,7 +67,7 @@ export class ConsultationRequestsService {
                 var data:any = response;
                 if(data.code == 1){
                     localStorage.removeItem("midom_user");
-                    this.router.navigate(['login']);
+                    this.router.navigate(['sessions/signin']);
                     return false;
                 }
                 console.log(data);
@@ -84,7 +84,24 @@ export class ConsultationRequestsService {
                 var data:any = response;
                 if(data.code == 1){
                     localStorage.removeItem("midom_user");
-                    this.router.navigate(['login']);
+                    this.router.navigate(['sessions/signin']);
+                    return false;
+                }
+                console.log(data);
+                return data as any
+            })
+            .catch(this.handleError);
+    }
+    uploadAudioFile(data,id): Promise<any> {
+        let url = environment.endpoint + '/ms/uploadAudioFile/'+id;
+        console.log(data);
+        return this.http.post(url, data)
+            .toPromise()
+            .then(response => {
+                var data:any = response;
+                if(data.code == 1){
+                    localStorage.removeItem("midom_user");
+                    this.router.navigate(['sessions/signin']);
                     return false;
                 }
                 console.log(data);
@@ -93,7 +110,7 @@ export class ConsultationRequestsService {
             .catch(this.handleError);
     }
     public handleError(error: any): Promise<any> {
-            console.log("HTTP error response received:")
+            console.log("HTTP error response received:");
             console.log(error);
             // this.globalService.showErrorMessage("HTTP request error " + error.status + " occured. " + error._body);
             return Promise.reject(error);

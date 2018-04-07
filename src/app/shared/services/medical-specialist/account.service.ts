@@ -17,7 +17,7 @@ export class AccountService {
                 var data: any = response;
                 if (data.code == 1) {
                     localStorage.removeItem("midom_user");
-                    this.router.navigate(['login']);
+                    this.router.navigate(['sessions/signin']);
                     return false;
                 }
                 return data as any
@@ -32,7 +32,7 @@ export class AccountService {
                 var data: any = response;
                 if (data.code == 1) {
                     localStorage.removeItem("midom_user");
-                    this.router.navigate(['login']);
+                    this.router.navigate(['sessions/signin']);
                     return false;
                 }
                 console.log(data);
@@ -48,7 +48,7 @@ export class AccountService {
                 var data: any = response;
                 if (data.code == 1) {
                     localStorage.removeItem("midom_user");
-                    this.router.navigate(['login']);
+                    this.router.navigate(['sessions/signin']);
                     return false;
                 }
                 console.log(data);

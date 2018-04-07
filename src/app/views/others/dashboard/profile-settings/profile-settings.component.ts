@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 import {AccountService} from '../../../../shared/services/medical-specialist/account.service';
@@ -11,7 +11,8 @@ import {SpecialisationsService} from '../../../../shared/services/medical-specia
 @Component({
   selector: 'app-profile-settings',
   templateUrl: './profile-settings.component.html',
-  styleUrls: ['./profile-settings.component.css']
+  styleUrls: ['./profile-settings.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class ProfileSettingsComponent implements OnInit {
   public hasBaseDropZoneOver: boolean = false;
