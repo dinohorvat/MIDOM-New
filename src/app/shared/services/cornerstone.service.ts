@@ -22,10 +22,16 @@ export class CornerstoneService {
         });
 
     }
+
     fetchDicomImage(url: string): Observable<any> {
         console.log(`fetching ${url}`);
         return Observable.fromPromise(cornerstone.loadAndCacheImage(`wadouri:${url}`)).first();
-
     }
+
+    fetchDicomLocal(file:any): Observable<any> {
+        const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
+        return Observable.fromPromise(cornerstone.loadImage(imageId)).first();
+    }
+
 
 }

@@ -26,6 +26,7 @@ import {AppLoaderModule} from '../../shared/services/app-loader/app-loader.modul
 import {AppConfirmModule} from '../../shared/services/app-confirm/app-confirm.module';
 import {NgxTablePopupComponent} from './ngx-table-popup/ngx-table-popup.component';
 import {AppChatsComponent} from './app-chats/app-chats.component';
+import {DicomViewerComponent} from './dicom-viewer/dicom-viewer.component';
 
 
 
@@ -63,7 +64,8 @@ import {AppChatsComponent} from './app-chats/app-chats.component';
     declarations: [
         ConsultationRequestsComponent,
         NgxTablePopupComponent,
-        AppChatsComponent
+        AppChatsComponent,
+        DicomViewerComponent
     ],
     entryComponents: [NgxTablePopupComponent]
 

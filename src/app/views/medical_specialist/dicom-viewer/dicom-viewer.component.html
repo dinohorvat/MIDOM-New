@@ -1,0 +1,43 @@
+    <div id="loadProgress">Image Load Progress:</div>
+
+    <div class="row">
+        <form id="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input (change)="onFileChange($event);" type="file" id="selectFile" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <!--<div class="row">-->
+        <!--<div class="col-md-6">-->
+            <!--<div style="width:512px;height:512px;position:relative;color: white;display:inline-block;border-style:solid;border-color:black;"-->
+                 <!--oncontextmenu="return false"-->
+                 <!--class='disable-selection noIbar'-->
+                 <!--unselectable='on'-->
+                 <!--onselectstart='return false;'-->
+                 <!--onmousedown='return false;'>-->
+                <!--<div #dicomHolder id="dicomImage"-->
+                     <!--style="width:512px;height:512px;top:0px;left:0px; position:absolute">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <div id="dicomWrapper"
+
+         class='disable-selection noIbar'
+         unselectable='on'
+         onselectstart='return false;'
+         onmousedown='return false;'>
+
+        <div cornerstone
+             [image]="imageData"
+             id="dicomImage"
+             style="height: 100%;">
+        </div>
+
+    </div>
+
+

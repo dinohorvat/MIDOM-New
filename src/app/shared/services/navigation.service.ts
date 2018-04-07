@@ -50,6 +50,13 @@ export class NavigationService {
       icon: 'local_hospital',
       state: 'ms/studies'
     },
+      {
+          name: 'DICOM Viewer',
+          type: 'link',
+          tooltip: 'DICOM',
+          icon: 'settings_overscan',
+          state: 'ms/dicom-viewer'
+      }
 
     // {
     //   name: 'MIDOM',
