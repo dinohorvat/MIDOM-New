@@ -10,8 +10,8 @@ import {AppConfirmService} from '../../../shared/services/app-confirm/app-confir
 import {AppLoaderService} from '../../../shared/services/app-loader/app-loader.service';
 import {StudyService} from '../../../shared/services/medical-specialist/study.service';
 import {AccountService} from '../../../shared/services/medical-specialist/account.service';
+import {CornerstoneService} from '../../../shared/services/cornerstone.service';
 
-declare var cornerstone: any;
 @Component({
     selector: 'app-consultation-requests',
     templateUrl: './consultation-requests.component.html',
@@ -29,40 +29,12 @@ export class ConsultationRequestsComponent implements OnInit {
     ];
     selectedStatus:string = "Pending";
     activeCr: any;
-    @ViewChild('abc') abc;
+    imageData: any;
 
-    dynamicImage:any;
     ngOnInit() {
-        this.dynamicImage = {
-            imageId: "notneeded",
-            minPixelValue: 0,
-            maxPixelValue: 255,
-            slope: 1.0,
-            intercept: 0,
-            windowCenter: 127,
-            windowWidth: 256,
-            render: cornerstone.renderGrayscaleImage,
-            getPixelData: this.getPixelData,
-            rows: 256,
-            columns: 256,
-            height: 256,
-            width: 256,
-            color: false,
-            columnPixelSpacing: 1.0,
-            rowPixelSpacing: 1.0,
-            invert: false,
-            sizeInBytes: 256 * 256 * 2,
-            data: {
-                opacity: 0.5
-            }
-        };
-
-        console.log(this.dynamicImage);
         this.getConsultationRequest("Pending");
-        cornerstone.enable(this.abc.nativeElement);
-        cornerstone.displayImage(this.abc.nativeElement, this.dynamicImage);
-
-
+        this.csS.fetchDicomImage(`http://localhost:4200/assets/slika.dcm`)
+            .subscribe(res =>  this.imageData = res);
     }
 
     statusChange(status){
@@ -77,7 +49,8 @@ export class ConsultationRequestsComponent implements OnInit {
                 private snack: MatSnackBar,
                 private confirmService: AppConfirmService,
                 private loader: AppLoaderService,
-                private accountService: AccountService) {
+                private accountService: AccountService,
+                private csS: CornerstoneService) {
     }
 
     showStudy(data) {
@@ -170,20 +143,5 @@ export class ConsultationRequestsComponent implements OnInit {
                 }
             ))
      }
-     getPixelData() {
-        const width = 256;
-        const height = 256;
-        const numPixels = width * height;
-        const pixelData = new Uint16Array(numPixels);
-        let index = 0;
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                pixelData[index] = ((x) % 256) * 1;
-                index++;
-            }
-        }
-        console.log(pixelData);
-        return pixelData;
-    }
     }
 

@@ -68,6 +68,8 @@ import {MedicalSpecialistService} from './services/medical-specialist/medical-sp
 import {SpecialisationsService} from './services/medical-specialist/specialisations.service';
 import {DatemsPipe} from './pipes/datems.pipe';
 import {StudyService} from './services/medical-specialist/study.service';
+import {CornerstoneDirective} from './directives/cornerstone.directive';
+import {CornerstoneService} from './services/cornerstone.service';
 
 const classesToInclude = [
   
@@ -88,7 +90,8 @@ const classesToInclude = [
   DropdownLinkDirective,
   RelativeTimePipe,
   ExcerptPipe,
-  DatemsPipe
+  DatemsPipe,
+    CornerstoneDirective
 ]
 
 @NgModule({
@@ -131,7 +134,8 @@ const classesToInclude = [
     ConsultationRequestsService,
     MedicalSpecialistService,
     SpecialisationsService,
-    StudyService
+    StudyService,
+      CornerstoneService
   ],
   declarations: classesToInclude,
   exports: classesToInclude

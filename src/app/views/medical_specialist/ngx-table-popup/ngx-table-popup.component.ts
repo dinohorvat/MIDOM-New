@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {StudyOwnerModel} from '../../../shared/models/consultation-request.model';
 import {StudyModel} from '../../../shared/models/study.model';
-import {cornerstone} from '../consultation-requests/consultation-requests.component';
 
 declare var cornerstone: any;
 @Component({
@@ -28,7 +27,7 @@ export class NgxTablePopupComponent implements OnInit {
         this.dicomHolder = content;
     }
 
-    dynamicImage:any;
+  dynamicImage:any;
   ngOnInit() {
     this.study = this.data.payload;
     this.studyOwner = this.data.payload.studyOwner;

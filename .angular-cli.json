@@ -22,7 +22,11 @@
         "assets/styles/app.scss"
       ],
       "scripts": [
-        "../node_modules/cornerstone-core/dist/cornerstone.js"
+        "../node_modules/cornerstone-core/dist/cornerstone.js",
+        "../node_modules/cornerstone-math/dist/cornerstoneMath.js",
+        "../node_modules/cornerstone-tools/dist/cornerstoneTools.js",
+        "../node_modules/dicom-parser/dist/dicomParser.js",
+        "../lib/cornerstoneWADOImageLoader.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
