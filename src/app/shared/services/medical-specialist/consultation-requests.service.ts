@@ -92,20 +92,38 @@ export class ConsultationRequestsService {
             })
             .catch(this.handleError);
     }
-    uploadAudioFile(data,id): Promise<any> {
-        let url = environment.endpoint + '/ms/uploadAudioFile/'+id;
+    uploadAudioFile(data,id, fileName?): Promise<any> {
+        let url = environment.endpoint + '/ms/setCrAnswer';
         console.log(data);
-        return this.http.post(url, data)
+        let tempData = {
+            comment: fileName,
+            crId: id
+        };
+        return this.http.post(url, tempData)
             .toPromise()
             .then(response => {
-                var data:any = response;
-                if(data.code == 1){
+                console.log(response);
+                var res:any = response;
+                if(res.code == 1){
                     localStorage.removeItem("midom_user");
                     this.router.navigate(['sessions/signin']);
                     return false;
                 }
-                console.log(data);
-                return data as any
+                let commentId = res.message.id;
+                let url = environment.endpoint + '/ms/uploadAudioFile/'+commentId;
+                return this.http.post(url, data)
+                    .toPromise()
+                    .then(response => {
+                        var data:any = response;
+                        if(data.code == 1){
+                            localStorage.removeItem("midom_user");
+                            this.router.navigate(['sessions/signin']);
+                            return false;
+                        }
+                        console.log(data);
+                        return data as any
+                    })
+                    .catch(this.handleError);
             })
             .catch(this.handleError);
     }

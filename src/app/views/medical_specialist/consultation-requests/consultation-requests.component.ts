@@ -11,6 +11,7 @@ import {AppLoaderService} from '../../../shared/services/app-loader/app-loader.s
 import {StudyService} from '../../../shared/services/medical-specialist/study.service';
 import {AccountService} from '../../../shared/services/medical-specialist/account.service';
 import {CornerstoneService} from '../../../shared/services/cornerstone.service';
+import * as JSZip from 'jszip';
 
 @Component({
     selector: 'app-consultation-requests',
@@ -33,8 +34,8 @@ export class ConsultationRequestsComponent implements OnInit {
 
     ngOnInit() {
         this.getConsultationRequest("Pending");
-        this.csS.fetchDicomImage(`http://localhost:4200/assets/slika.dcm`)
-            .subscribe(res =>  this.imageData = res);
+        // this.csS.fetchDicomImage(`http://localhost:4200/assets/slika.dcm`)
+        //     .subscribe(res =>  this.imageData = res);
     }
 
     statusChange(status){
@@ -88,14 +89,13 @@ export class ConsultationRequestsComponent implements OnInit {
 
     }
     showImages(data){
-        let title = 'Study Information';
-        let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
-            width: '720px',
-            disableClose: true,
-            data: {dicom:true, title: title,  payload: {}, activeCr:this.activeCr}
-        });
-        Promise.resolve(this.studyService.fetchDICOM(data.study)).then(res =>{
-
+        Promise.resolve(this.studyService.fetchDICOMImages(data.study)).then(res =>{
+            let title = 'Study Information';
+            let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
+                width: '720px',
+                disableClose: true,
+                data: {dicomArr:res, dicom:true, title: title,  payload: {}, activeCr:this.activeCr}
+            });
         }).catch(err => {
 
         });

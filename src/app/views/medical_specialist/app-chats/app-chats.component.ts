@@ -7,6 +7,7 @@ import {CrMessageModel} from '../../../shared/models/cr-message.model';
 import {GlobalService} from '../../../shared/services/global.service';
 import {isNullOrUndefined} from 'util';
 import {Router} from '@angular/router';
+import {AppLoaderService} from '../../../shared/services/app-loader/app-loader.service';
 
 @Component({
   selector: 'app-chats',
@@ -33,7 +34,7 @@ export class AppChatsComponent implements OnInit {
     name: 'Test test',
     photo: 'assets/images/face-2.jpg',
     isOnline: true,
-    lastMsg: 'What\'s going!'
+    lastMsg: ''
   }];
     crMessageList: CrMessageModel[] = [];
     crId: any;
@@ -41,7 +42,9 @@ export class AppChatsComponent implements OnInit {
     disabled: boolean = false;
     constructor(private media: ObservableMedia,
                 private consultationRequestsService: ConsultationRequestsService,
-                private globalService: GlobalService, private router: Router) {
+                private globalService: GlobalService, private router: Router,
+                private loader: AppLoaderService
+    ) {
       if(isNullOrUndefined(this.globalService.crId) || this.globalService.crId == ''){
         this.router.navigate(['/ms/consultation-requests']);
       }
@@ -51,6 +54,7 @@ export class AppChatsComponent implements OnInit {
       console.log(this.globalService.crId);
       console.log(this.globalService.crMessageList);
       this.crMessageList = this.globalService.crMessageList;
+      console.log(this.crMessageList);
       this.crId = this.globalService.crId;
       if(this.globalService.crStatus == 'Closed' || this.globalService.crStatus == 'Rejected'
       || this.globalService.crStatus == 'Revoked'){
@@ -90,10 +94,24 @@ export class AppChatsComponent implements OnInit {
           ));
       }
       else{
-          Promise.resolve(this.consultationRequestsService.uploadAudioFile(this.audioFile, this.crId)
+          let message: CrMessageModel = new CrMessageModel();
+          message.msSender = "1";
+          message.comment = this.audioFile.name;
+          var date = new Date();
+          var time = date.getTime();
+          message.creationTime = time;
+
+          this.loader.open("Sending Audio Message...");
+          console.log(this.audioFile);
+          let formData = new FormData();
+          formData.append("audioFile", this.audioFile);
+          console.log(formData);
+          Promise.resolve(this.consultationRequestsService.uploadAudioFile(formData, this.crId.toString(),this.audioFile.name)
               .then(res => {
                   console.log(res);
-                    this.comment = '';
+                  this.crMessageList.push(message);
+                  this.comment = '';
+                  this.loader.close();
               }).catch(err =>{
                       console.log(err);
                   }
@@ -109,16 +127,16 @@ export class AppChatsComponent implements OnInit {
         element.click();
   }
   uploadAudio(e){
+        console.log(e);
       this.audioShow = false;
       let audio = this.audioPlayerRef.nativeElement;
       console.log(e.target.files[0]);
       let file = e.target.files[0];
       let reader = new FileReader();
-      let tempFile = this.audioFile;
+      this.audioFile = file;
       reader.onload = function (event:any) {
           console.log(event);
           audio.src = event.target.result;
-          tempFile = audio.src;
           audio.load();
           audio.play();
       };

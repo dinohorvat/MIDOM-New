@@ -82,7 +82,6 @@ export class ProfileSettingsComponent implements OnInit {
                 });
                 Promise.resolve(this.specialisationsService.fetchAllSpecialisations().then(res =>{
                     this.allSpecialisations = res.message;
-                    console.log("SPECS");
                     console.log(this.allSpecialisations);
                     console.log(this.userSpecialisations);
                 }).catch(err =>{

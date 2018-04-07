@@ -30,14 +30,11 @@ export class LoginService {
             .catch(this.handleError);
     }
     public handleError(error: any): Promise<any> {
-        if(error.indexOf('404 OK') >=0) {
-            return null;
-        } else {
-            console.log("HTTP error response received:")
+            console.log("HTTP error response received:");
             console.log(error);
             // this.globalService.showErrorMessage("HTTP request error " + error.status + " occured. " + error._body);
             return Promise.reject(error);
         }
 
-    }
+
 }

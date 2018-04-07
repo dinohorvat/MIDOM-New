@@ -10,7 +10,7 @@ export class GlobalService {
     crId: string = '';
     crStatus: string = '';
     consultationRequestList: ConsultationRequestModel[] = [];
-
+    dicomImages: any = [];
     constructor(public snackBar: MatSnackBar, private consultationRequestService: ConsultationRequestsService) { }
 
     showNotice(message) {

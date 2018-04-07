@@ -65,15 +65,27 @@
           fxFlex.gt-sm="100">
     <div class="container">
 
-      <div #dicomHolder id="dicomImage" style="width:512px;height:512px"
-           oncontextmenu="return false"
-           onmousedown="return false">
+      <div id="dicomWrapper"
+
+           class='disable-selection noIbar'
+           unselectable='on'
+           onselectstart='return false;'
+           onmousedown='return false;'>
+
+        <div cornerstone
+             [image]="imageData"
+             id="dicomImage"
+             style="height: 100%;">
+        </div>
+
       </div>
 
     </div>
   </div>
 
 </div>
+
+
 
 <button mat-raised-button (click)="close();">Close</button>
 <button (click)="getUncompressedStudy()" matTooltip="Download Uncompressed" mat-raised-button>
