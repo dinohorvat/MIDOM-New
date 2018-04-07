@@ -7,6 +7,7 @@ import {ConsultationRequestsService} from '../../../shared/services/medical-spec
 import {GlobalService} from '../../../shared/services/global.service';
 import {StudyService} from '../../../shared/services/medical-specialist/study.service';
 import {CornerstoneService} from '../../../shared/services/cornerstone.service';
+import {isNullOrUndefined} from 'util';
 
 declare var cornerstone: any;
 @Component({
@@ -40,12 +41,14 @@ export class NgxTablePopupComponent implements OnInit {
   imageData:any;
   ngOnInit() {
       console.log("DICOM___IMAGES");
+      if(!isNullOrUndefined(this.data.dicomArr)){
       if(this.data.dicomArr.length == 0){
           this.globalService.showNotice("No available DICOM images for this study")
       }
       else{
           this.csS.fetchDicomImage(this.data.dicomArr[0][1])
               .subscribe(res =>  this.imageData = res);
+      }
       }
     this.crStatus = this.globalService.crStatus;
     this.study = this.data.payload;
