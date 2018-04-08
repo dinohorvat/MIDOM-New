@@ -82,7 +82,11 @@
 
     </div>
   </div>
-
+  Image {{currentImage+1}} / {{allImages}}
+  <div class="dicomButtons">
+    <button [disabled]="disableNextPrev" class="prev" mat-raised-button (click)="prevImage();">Prev</button>
+    <button [disabled]="disableNextPrev" class="next" mat-raised-button (click)="nextImage();">Next</button>
+  </div>
 </div>
 
 

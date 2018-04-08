@@ -21,6 +21,10 @@ export class NgxTablePopupComponent implements OnInit {
     studyOwner: StudyOwnerModel = new StudyOwnerModel();
     activeCr: any;
     crStatus: string = '';
+    currentImage = 0;
+    allImages = 0;
+    disableNextPrev:boolean = true;
+
     constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<NgxTablePopupComponent>,
@@ -46,6 +50,10 @@ export class NgxTablePopupComponent implements OnInit {
           this.globalService.showNotice("No available DICOM images for this study")
       }
       else{
+          this.allImages = this.data.dicomArr.length;
+          if(this.allImages > 1){
+              this.disableNextPrev = false;
+          }
           this.csS.fetchDicomImage(this.data.dicomArr[0][1])
               .subscribe(res =>  this.imageData = res);
       }
@@ -163,6 +171,26 @@ export class NgxTablePopupComponent implements OnInit {
     //     console.log(pixelData);
     //     return pixelData;
     // }
+    nextImage(){
+      this.currentImage++;
+      let images = this.data.dicomArr.length;
+      images = images-1;
+      if(this.currentImage > images){
+          this.currentImage = 0;
+      }
+        this.csS.fetchDicomImage(this.data.dicomArr[this.currentImage][1])
+            .subscribe(res =>  this.imageData = res);
+    }
+    prevImage(){
+        this.currentImage--;
+        let images = this.data.dicomArr.length;
+        images = images-1;
+        if(this.currentImage <= 0){
+            this.currentImage = images;
+        }
+        this.csS.fetchDicomImage(this.data.dicomArr[this.currentImage][1])
+            .subscribe(res =>  this.imageData = res);
+    }
 
     acceptCr(){
         let data = {

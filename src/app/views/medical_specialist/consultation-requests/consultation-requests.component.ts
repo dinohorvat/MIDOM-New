@@ -67,7 +67,7 @@ export class ConsultationRequestsComponent implements OnInit {
                     let title = 'Study Information';
                     let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
                         width: '720px',
-                        disableClose: true,
+                        disableClose: false,
                         data: {dicom:false, title: title, payload: studyRes.message, activeCr:this.activeCr}
                     });
                     dialogRef.afterClosed()
@@ -90,10 +90,11 @@ export class ConsultationRequestsComponent implements OnInit {
     }
     showImages(data){
         Promise.resolve(this.studyService.fetchDICOMImages(data.study)).then(res =>{
-            let title = 'Study Information';
+            let title = 'Study Information / DICOM';
             let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
-                width: '720px',
-                disableClose: true,
+                width: '100%',
+                height: '100%',
+                disableClose: false,
                 data: {dicomArr:res, dicom:true, title: title,  payload: {}, activeCr:this.activeCr}
             });
         }).catch(err => {
