@@ -131,9 +131,10 @@
       <mat-card-content>
         <div class="mb-1">
           <p>Specialisations</p>
-          <mat-checkbox *ngFor="let specialisation of allSpecialisations"
-                  name="rememberMe"
-                  class="pb-1 specs">{{specialisation.name}}</mat-checkbox>
+                      <mat-checkbox [checked]="specialisation.active" *ngFor="let specialisation of allSpecialisations" value="{{specialisation.id}}" (change)="selectSpec($event)"
+                                    name="rememberMe"
+                                    class="pb-1 specs">{{specialisation.name}}</mat-checkbox>
+
         </div>
         <button mat-raised-button (click)="updateSpecialisations();" color="primary">Save</button>
       </mat-card-content>
@@ -177,6 +178,9 @@
     </mat-tab>
     <mat-tab label="Application Settings">
       <mat-card-content>
+        <div style="margin-top:15px;" class="mb-1">
+          <mat-checkbox [(ngModel)]="notifications"> Get notifications for pending requests.</mat-checkbox>
+        </div>
         <div class="mb-1">
             <p>Choose your admin panel color schemes.</p>
             <mat-radio-group fxLayout="column" fxLayoutGap="4px">

@@ -27,8 +27,9 @@ export class ProfileSettingsComponent implements OnInit {
     user: MedicalSpecialistModel = new MedicalSpecialistModel();
     allSpecialisations: SpecialisationModel[] = [];
     userSpecialisations: SpecialisationModel[] = [];
-    specialisationsList: SpecialisationModel[] = [];
-
+    combinedSpecilastions: SpecialisationModel[] = [];
+    specialisationsList: any = [];
+    notifications: boolean = false;
     selectedTheme: string;
     ngOnInit() {
         this.getUser();
@@ -60,6 +61,7 @@ export class ProfileSettingsComponent implements OnInit {
             password: password,
             confirmPassword: confirmPassword
         })
+
     }
 
     getUser(){
@@ -68,6 +70,9 @@ export class ProfileSettingsComponent implements OnInit {
                 let res: any = response;
                 this.user = res.message;
                 this.userSpecialisations = this.user.specialisations;
+                for(let spec of this.userSpecialisations){
+                    this.specialisationsList.push(spec.id);
+                }
                 this.basicForm.patchValue({
                     username: this.user.username,
                     firstName: this.user.firstName,
@@ -82,6 +87,13 @@ export class ProfileSettingsComponent implements OnInit {
                 });
                 Promise.resolve(this.specialisationsService.fetchAllSpecialisations().then(res =>{
                     this.allSpecialisations = res.message;
+                    for(let item of this.userSpecialisations){
+                        for (let _item of this.allSpecialisations){
+                            if(item.id == _item.id){
+                                _item.active = true;
+                            }
+                        }
+                    }
                     console.log(this.allSpecialisations);
                     console.log(this.userSpecialisations);
                 }).catch(err =>{
@@ -114,9 +126,22 @@ export class ProfileSettingsComponent implements OnInit {
             console.log(err);
         })
     }
+    selectSpec(e){
+        let id = e.source.value;
+        this.addOrRemove(this.specialisationsList, parseInt(id));
+        console.log(this.specialisationsList);
+    }
+    addOrRemove(array, value) {
+        var index = array.indexOf(value);
 
+        if (index === -1) {
+            array.push(value);
+        } else {
+            array.splice(index, 1);
+        }
+    }
     updateSpecialisations(){
-        let data = [7,8];
+        let data = this.specialisationsList;
         Promise.resolve(this.specialisationsService.updateSpecialisations(data))
             .then(response => {
                 let res: any = response;
@@ -143,7 +168,11 @@ export class ProfileSettingsComponent implements OnInit {
         this.selectedTheme = theme
     }
     saveTheme(){
-        localStorage.setItem("theme",this.selectedTheme);
+        let data = {
+            noitifications: this.notifications,
+            theme: this.selectedTheme
+        };
+        localStorage.setItem("appSettings",JSON.stringify(data));
         window.location.reload();
     }
 

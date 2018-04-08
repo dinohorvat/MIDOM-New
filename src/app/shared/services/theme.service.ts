@@ -1,5 +1,6 @@
 import { Injectable, Inject, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {isNullOrUndefined} from 'util';
 
 interface ITheme {
   name: string,
@@ -34,7 +35,11 @@ export class ThemeService {
 
   // Invoked in AppComponent and apply 'activatedTheme' on startup
   getActiveTheme(){
-    return localStorage.getItem("theme");
+    let appSettings = JSON.parse(localStorage.getItem("appSettings"));
+    if(!isNullOrUndefined(appSettings)){
+        return appSettings.theme;
+    }
+    else return false;
   }
   applyMatTheme(r: Renderer2) {
     /*

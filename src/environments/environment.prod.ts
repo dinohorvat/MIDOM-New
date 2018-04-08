@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiURL: 'productionApi'
+  endpoint: "http://midom.rasip.fer.hr:8080"
 };
