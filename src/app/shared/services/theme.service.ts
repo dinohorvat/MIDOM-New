@@ -49,9 +49,9 @@ export class ThemeService {
     // this.activatedTheme = this.egretThemes[0]; 
     // this.activatedTheme = this.egretThemes[1]; 
     // this.activatedTheme = this.egretThemes[2];
-    if(this.getActiveTheme()){
+    if(this.getActiveTheme() !== false){
       let themeNo = this.getActiveTheme();
-      this.activatedTheme = this.egretThemes[parseInt(themeNo)];
+      this.activatedTheme = this.egretThemes[themeNo];
     }
     else{
         this.activatedTheme = this.egretThemes[3];

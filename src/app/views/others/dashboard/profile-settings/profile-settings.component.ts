@@ -7,6 +7,7 @@ import {ThemeService} from '../../../../shared/services/theme.service';
 import {MedicalSpecialistModel, SpecialisationModel} from '../../../../shared/models/medical-specialist.model';
 import {MedicalSpecialistService} from '../../../../shared/services/medical-specialist/medical-specialist.service';
 import {SpecialisationsService} from '../../../../shared/services/medical-specialist/specialisations.service';
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-profile-settings',
@@ -31,8 +32,14 @@ export class ProfileSettingsComponent implements OnInit {
     specialisationsList: any = [];
     notifications: boolean = false;
     selectedTheme: string;
+    activeTheme: string;
     ngOnInit() {
         this.getUser();
+        if(this.getActiveSettings() !== false){
+            let settings = this.getActiveSettings();
+            this.notifications = settings.notifications;
+            this.activeTheme = settings.theme;
+        }
         this.egretThemes = this.themeService.egretThemes;
         console.log(this.themeService.activatedTheme);
         let password = new FormControl('', Validators.required);
@@ -164,13 +171,20 @@ export class ProfileSettingsComponent implements OnInit {
           console.log(err);
       }))
     }
+    getActiveSettings(){
+        let appSettings = JSON.parse(localStorage.getItem("appSettings"));
+        if(!isNullOrUndefined(appSettings)){
+            return appSettings;
+        }
+        else return false;
+    }
     changeTheme(theme) {
         this.selectedTheme = theme
     }
     saveTheme(){
         let data = {
-            noitifications: this.notifications,
-            theme: this.selectedTheme
+            notifications: this.notifications,
+            theme: this.selectedTheme || this.activeTheme
         };
         localStorage.setItem("appSettings",JSON.stringify(data));
         window.location.reload();

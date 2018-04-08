@@ -44,7 +44,7 @@
   </mat-select>
 
   <!-- Notification toggle button -->
-  <button 
+  <button *ngIf="notifications"
   mat-icon-button
   matTooltip="Notifications" 
   (click)="toggleNotific()"

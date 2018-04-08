@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { LayoutService } from '../../services/layout.service';
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-header-top',
@@ -21,7 +22,8 @@ export class HeaderTopComponent implements OnInit, OnDestroy {
   }, {
     name: 'Croatian',
     code: 'hr',
-  }]
+  }];
+  public notifications;
   @Input() notificPanel;
   constructor(
     private layout: LayoutService,
@@ -34,6 +36,9 @@ export class HeaderTopComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.layoutConf = this.layout.layoutConf;
     this.egretThemes = this.themeService.egretThemes;
+      if(this.getNotifications() !== false){
+        this.notifications = this.getNotifications();
+      }
     this.menuItemSub = this.navService.menuItems$
     .subscribe(res => {
       res = res.filter(item => item.type !== 'icon' && item.type !== 'separator');
@@ -50,6 +55,13 @@ export class HeaderTopComponent implements OnInit, OnDestroy {
       this.menuItems = mainItems
     })
   }
+    getNotifications(){
+        let appSettings = JSON.parse(localStorage.getItem("appSettings"));
+        if(!isNullOrUndefined(appSettings.notifications)){
+            return appSettings.notifications;
+        }
+        else return false;
+    }
   ngOnDestroy() {
     this.menuItemSub.unsubscribe()
   }

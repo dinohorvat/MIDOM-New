@@ -3,6 +3,7 @@ import { ThemeService } from '../../services/theme.service';
 import { LayoutService } from '../../services/layout.service';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import {GlobalService} from '../../services/global.service';
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-header-side',
@@ -17,9 +18,10 @@ export class HeaderSideComponent implements OnInit {
   }, {
     name: 'Croatian',
     code: 'hr',
-  }]
+  }];
   public egretThemes;
   public layoutConf:any;
+  public notifications: boolean = false;
   constructor(
     private themeService: ThemeService,
     private layout: LayoutService,
@@ -31,7 +33,17 @@ export class HeaderSideComponent implements OnInit {
     this.egretThemes = this.themeService.egretThemes;
     this.layoutConf = this.layout.layoutConf;
     this.globalService.getConsultationRequest("Pending");
+    if(this.getNotifications() !== false){
+        this.notifications = this.getNotifications();
+    }
   }
+    getNotifications(){
+        let appSettings = JSON.parse(localStorage.getItem("appSettings"));
+        if(!isNullOrUndefined(appSettings.notifications)){
+            return appSettings.notifications;
+        }
+        else return false;
+    }
   setLang() {
     this.translate.use(this.currentLang)
   }

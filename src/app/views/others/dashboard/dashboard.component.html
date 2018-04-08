@@ -5,7 +5,7 @@
         <img src="assets/images/face-7.jpg" alt="">
       </div>
       <div class="profile-title text-center mb-1">
-        <mat-slide-toggle [checked]="isAvailable" (change)="changeStatus($event)" [color]="'primary'"></mat-slide-toggle>
+        <mat-slide-toggle [checked]="isAvailable" (change)="changeStatus($event)"></mat-slide-toggle>
         <div class="main-title">{{user.firstName}} <b>{{user.lastName}}</b></div>
         <div class="subtitle mb-05">@{{user.username}}</div>
         <div class="text-muted">{{user.description}}</div>
