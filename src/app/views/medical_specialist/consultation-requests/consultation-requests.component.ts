@@ -89,7 +89,14 @@ export class ConsultationRequestsComponent implements OnInit {
 
     }
     showImages(data){
+        this.loader.open("Loading images. Please wait...");
         Promise.resolve(this.studyService.fetchDICOMImages(data.study)).then(res =>{
+            this.loader.close();
+
+            if(res.length == 0){
+                this.globalService.showNotice("No available DICOM images for this study");
+                return false;
+            }
             let title = 'Study Information / DICOM';
             let dialogRef: MatDialogRef<any> = this.dialog.open(NgxTablePopupComponent, {
                 width: '100%',
@@ -98,7 +105,8 @@ export class ConsultationRequestsComponent implements OnInit {
                 data: {dicomArr:res, dicom:true, title: title,  payload: {}, activeCr:this.activeCr}
             });
         }).catch(err => {
-
+            this.loader.close();
+            this.globalService.showNotice("There are no DICOM images for this study")
         });
     }
 

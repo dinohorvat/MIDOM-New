@@ -6,12 +6,14 @@ import {Router} from "@angular/router";
 import {ResponseContentType} from "@angular/http";
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils';
+import {AppLoaderService} from '../app-loader/app-loader.service';
 
 @Injectable()
 export class StudyService {
 
 
-    constructor(private http: HttpClient, private router: Router) {
+    constructor(private http: HttpClient, private router: Router, private loader: AppLoaderService,
+    ) {
     }
     fetchStudy(id): Promise<any> {
         let url = environment.endpoint + '/ms/getStudy/'+id;
@@ -34,6 +36,7 @@ export class StudyService {
         return this.http.get(url,{responseType: "blob"})
             .toPromise()
             .then(re_ => {
+                this.loader.changeTitle("Unzipping images. Please wait...");
                 var data_:any = re_;
                 if(data_.code == 1){
                     localStorage.removeItem("midom_user");
@@ -65,7 +68,6 @@ export class StudyService {
                 }).catch(function (e) {
                     console.error(e);
                 });
-
                 return imgURLS as any
             })
             .catch(this.handleError);

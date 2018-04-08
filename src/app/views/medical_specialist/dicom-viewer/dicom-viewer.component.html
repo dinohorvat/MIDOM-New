@@ -1,12 +1,13 @@
 <div id="dicom">
 
-    <div id="loadProgress">Image Load Progress:</div>
 
     <div class="row">
         <form id="form" class="form-horizontal">
             <div class="form-group">
                 <div class="col-sm-3">
-                    <input (change)="onFileChange($event);" type="file" id="selectFile" />
+                    <button (click)="triggerClick();" type="button" mat-raised-button color="primary">Choose File</button>
+
+                    <input hidden (change)="onFileChange($event);" type="file" id="selectFile" />
                 </div>
             </div>
         </form>

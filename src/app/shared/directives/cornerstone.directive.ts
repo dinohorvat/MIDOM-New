@@ -84,10 +84,10 @@ export class CornerstoneDirective implements OnInit {
         cornerstone.displayImage(this.element, image);
         cornerstoneTools.mouseInput.enable(this.element);
         cornerstoneTools.mouseWheelInput.enable(this.element);
-          cornerstoneTools.wwwc.activate(this.element, 1); // ww/wc is the default tool for left mouse button
-          cornerstoneTools.pan.activate(this.element, 2); // pan is the default tool for middle mouse button
-          cornerstoneTools.zoom.activate(this.element, 4); // zoom is the default tool for right mouse button
-          cornerstoneTools.zoomWheel.activate(this.element); // zoom is the default tool for middle mouse wheel
+        cornerstoneTools.wwwc.activate(this.element, 1); // ww/wc is the default tool for left mouse button
+        cornerstoneTools.pan.activate(this.element, 2); // pan is the default tool for middle mouse button
+        cornerstoneTools.zoom.activate(this.element, 4); // zoom is the default tool for right mouse button
+        cornerstoneTools.zoomWheel.activate(this.element); // zoom is the default tool for middle mouse wheel
     }
 
 

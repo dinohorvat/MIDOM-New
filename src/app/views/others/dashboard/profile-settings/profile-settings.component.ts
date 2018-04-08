@@ -180,12 +180,28 @@ export class ProfileSettingsComponent implements OnInit {
     }
     changeTheme(theme) {
         this.selectedTheme = theme
+        console.log(this.selectedTheme)
     }
     saveTheme(){
-        let data = {
-            notifications: this.notifications,
-            theme: this.selectedTheme || this.activeTheme
-        };
+        let data;
+        if(isNullOrUndefined(this.selectedTheme) && isNullOrUndefined(this.activeTheme)){
+            data = {
+                notifications: this.notifications,
+                theme: 3
+            };
+        }
+        else if (isNullOrUndefined(this.selectedTheme)) {
+            data = {
+                notifications: this.notifications,
+                theme: this.activeTheme
+            };
+        }
+        else {
+            data = {
+                notifications: this.notifications,
+                theme: this.selectedTheme
+            };
+        }
         localStorage.setItem("appSettings",JSON.stringify(data));
         window.location.reload();
     }

@@ -15,6 +15,10 @@ export class AppLoaderService {
     return this.dialogRef.afterClosed();
   }
 
+  public changeTitle(title: string){
+      this.dialogRef.componentInstance.title = title;
+  }
+
   public close() {
     if(this.dialogRef)
       this.dialogRef.close();
